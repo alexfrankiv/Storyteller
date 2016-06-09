@@ -1,0 +1,96 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'git+https://github.com/jaukia/zoomooz.git' ]
+2 info using npm@2.15.1
+3 info using node@v4.4.4
+4 verbose install initial load of D:\KMA\JavaScript\JS_proj\package.json
+5 warn package.json Stories@1.0.0 No description
+6 warn package.json Stories@1.0.0 No repository field.
+7 warn package.json Stories@1.0.0 No README data
+8 verbose installManyTop reading scoped package data from D:\KMA\JavaScript\JS_proj\node_modules\basil.js\package.json
+9 verbose installManyTop reading scoped package data from D:\KMA\JavaScript\JS_proj\node_modules\body-parser\package.json
+10 verbose installManyTop reading scoped package data from D:\KMA\JavaScript\JS_proj\node_modules\brfs\package.json
+11 verbose installManyTop reading scoped package data from D:\KMA\JavaScript\JS_proj\node_modules\ejs\package.json
+12 verbose installManyTop reading scoped package data from D:\KMA\JavaScript\JS_proj\node_modules\express\package.json
+13 verbose installManyTop reading scoped package data from D:\KMA\JavaScript\JS_proj\node_modules\grunt\package.json
+14 verbose installManyTop reading scoped package data from D:\KMA\JavaScript\JS_proj\node_modules\grunt-browserify\package.json
+15 verbose installManyTop reading scoped package data from D:\KMA\JavaScript\JS_proj\node_modules\grunt-contrib-watch\package.json
+16 verbose installManyTop reading scoped package data from D:\KMA\JavaScript\JS_proj\node_modules\morgan\package.json
+17 info package.json basil.js@0.4.3 No repository field.
+18 info package.json basil.js@0.4.3 No license field.
+19 info package.json grunt-browserify@4.0.1 No license field.
+20 info package.json grunt@0.4.5 No license field.
+21 info package.json grunt-contrib-watch@0.6.1 No license field.
+22 verbose readDependencies loading dependencies from D:\KMA\JavaScript\JS_proj\package.json
+23 silly cache add args [ 'git+https://github.com/jaukia/zoomooz.git', null ]
+24 verbose cache add spec git+https://github.com/jaukia/zoomooz.git
+25 silly cache add parsed spec Result {
+25 silly cache add   raw: 'git+https://github.com/jaukia/zoomooz.git',
+25 silly cache add   scope: null,
+25 silly cache add   name: null,
+25 silly cache add   rawSpec: 'git+https://github.com/jaukia/zoomooz.git',
+25 silly cache add   spec: 'git+https://github.com/jaukia/zoomooz.git',
+25 silly cache add   type: 'hosted',
+25 silly cache add   hosted:
+25 silly cache add    { type: 'github',
+25 silly cache add      ssh: 'git@github.com:jaukia/zoomooz.git',
+25 silly cache add      sshUrl: 'git+ssh://git@github.com/jaukia/zoomooz.git',
+25 silly cache add      httpsUrl: 'git+https://github.com/jaukia/zoomooz.git',
+25 silly cache add      gitUrl: 'git://github.com/jaukia/zoomooz.git',
+25 silly cache add      shortcut: 'github:jaukia/zoomooz',
+25 silly cache add      directUrl: 'https://raw.githubusercontent.com/jaukia/zoomooz/master/package.json' } }
+26 verbose addRemoteGit caching git+https://github.com/jaukia/zoomooz.git
+27 verbose addRemoteGit git+https://github.com/jaukia/zoomooz.git is a repository hosted by github
+28 silly tryClone cloning git+https://github.com/jaukia/zoomooz.git via git+https://github.com/jaukia/zoomooz.git
+29 verbose tryClone https-github-com-jaukia-zoomooz-git-c1effb60 not in flight; caching
+30 verbose correctMkdir C:\Users\Alex_Frankiv\AppData\Roaming\npm-cache\_git-remotes correctMkdir not in flight; initializing
+31 verbose makeDirectory C:\Users\Alex_Frankiv\AppData\Roaming\npm-cache\_git-remotes creation not in flight; initializing
+32 verbose makeCacheDir UID & GID are irrelevant on win32
+33 info git [ 'clone',
+33 info git   '--template=C:\\Users\\Alex_Frankiv\\AppData\\Roaming\\npm-cache\\_git-remotes\\_templates',
+33 info git   '--mirror',
+33 info git   'https://github.com/jaukia/zoomooz.git',
+33 info git   'C:\\Users\\Alex_Frankiv\\AppData\\Roaming\\npm-cache\\_git-remotes\\https-github-com-jaukia-zoomooz-git-c1effb60' ]
+34 verbose mirrorRemote git+https://github.com/jaukia/zoomooz.git git clone https://github.com/jaukia/zoomooz.git
+35 verbose setPermissions git+https://github.com/jaukia/zoomooz.git skipping chownr on Windows
+36 verbose resolveHead git+https://github.com/jaukia/zoomooz.git original treeish: master
+37 info git [ 'rev-list', '-n1', 'master' ]
+38 silly resolveHead git+https://github.com/jaukia/zoomooz.git resolved treeish: 87ab8d9f942fbfdaf6a926df28c586c5fdd22739
+39 verbose resolveHead git+https://github.com/jaukia/zoomooz.git resolved Git URL: git+https://github.com/jaukia/zoomooz.git#87ab8d9f942fbfdaf6a926df28c586c5fdd22739
+40 silly resolveHead Git working directory: C:\Users\ALEX_F~1\AppData\Local\Temp\npm-3852-a9af24c7\git-cache-621953c7d88b\87ab8d9f942fbfdaf6a926df28c586c5fdd22739
+41 info git [ 'clone',
+41 info git   'C:\\Users\\Alex_Frankiv\\AppData\\Roaming\\npm-cache\\_git-remotes\\https-github-com-jaukia-zoomooz-git-c1effb60',
+41 info git   'C:\\Users\\ALEX_F~1\\AppData\\Local\\Temp\\npm-3852-a9af24c7\\git-cache-621953c7d88b\\87ab8d9f942fbfdaf6a926df28c586c5fdd22739' ]
+42 verbose cloneResolved git+https://github.com/jaukia/zoomooz.git clone Cloning into 'C:\Users\ALEX_F~1\AppData\Local\Temp\npm-3852-a9af24c7\git-cache-621953c7d88b\87ab8d9f942fbfdaf6a926df28c586c5fdd22739'...
+42 verbose cloneResolved done.
+43 info git [ 'checkout', '87ab8d9f942fbfdaf6a926df28c586c5fdd22739' ]
+44 verbose checkoutTreeish git+https://github.com/jaukia/zoomooz.git checkout Note: checking out '87ab8d9f942fbfdaf6a926df28c586c5fdd22739'.
+44 verbose checkoutTreeish
+44 verbose checkoutTreeish You are in 'detached HEAD' state. You can look around, make experimental
+44 verbose checkoutTreeish changes and commit them, and you can discard any commits you make in this
+44 verbose checkoutTreeish state without impacting any branches by performing another checkout.
+44 verbose checkoutTreeish
+44 verbose checkoutTreeish If you want to create a new branch to retain commits you create, you may
+44 verbose checkoutTreeish do so (now or later) by using -b with the checkout command again. Example:
+44 verbose checkoutTreeish
+44 verbose checkoutTreeish   git checkout -b <new-branch-name>
+44 verbose checkoutTreeish
+44 verbose checkoutTreeish HEAD is now at 87ab8d9... Merge pull request #98 from Jako/patch-1
+45 error addLocal Could not install C:\Users\ALEX_F~1\AppData\Local\Temp\npm-3852-a9af24c7\git-cache-621953c7d88b\87ab8d9f942fbfdaf6a926df28c586c5fdd22739
+46 verbose stack Error: EISDIR: illegal operation on a directory, read
+46 verbose stack     at Error (native)
+47 verbose cwd D:\KMA\JavaScript\JS_proj
+48 error Windows_NT 6.3.9600
+49 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "git+https://github.com/jaukia/zoomooz.git"
+50 error node v4.4.4
+51 error npm  v2.15.1
+52 error code EISDIR
+53 error errno -4068
+54 error syscall read
+55 error eisdir EISDIR: illegal operation on a directory, read
+55 error eisdir This is most likely not a problem with npm itself
+55 error eisdir and is related to npm not being able to find a package.json in
+55 error eisdir a package you are trying to install.
+56 verbose exit [ -4068, true ]
