@@ -1,5 +1,5 @@
 // target elements with the "draggable" class
-interact('.draggable')
+/*interact('.draggable')
   .draggable({
     // enable inertial throwing
     inertia: true,
@@ -49,3 +49,18 @@ interact('.draggable')
 
   // this is used later in the resizing and gesture demos
   window.dragMoveListener = dragMoveListener;
+
+	
+});*/
+
+var storyTree = require('./StoryTree.js');
+
+$(function () {
+	
+	
+    jsPlumb.ready(function(){
+	storyTree.buildTree();
+		
+	});
+
+});
