@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 
             //Збірка з назвою піца
             editor: {
-                src:        'Frontend/src/main.js',
+                src:        'Frontend/src/js/main.js',
                 dest:       'Frontend/www/assets/js/main.js'
             }
         }

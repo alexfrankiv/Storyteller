@@ -13,15 +13,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
 
 </head>
-	<body>
+	<body id="body-elem" oncontextmenu="return false">
 		
-		<div class="container">
+		<div class="container canvas">
 		
 			<h1>Storyteller main Editor</h1>
 			<p> just simple text</p>
 			<h6> header 6</h6>
-			<div class="zoomTarget story-node"> <p id="node-0" class="story-node-text">here's the story </p></div>
-			<div class="zoomTarget story-node"> <p id="node-1" class="story-node-text">here's the second chapter </p></div>
+			<div class="zoomTarget story-node draggable"> <p id="node-0" class="story-node-text">here's the story </p></div>
+			<div class="zoomTarget story-node draggable"> <p id="node-1" class="story-node-text">here's the second chapter </p></div>
 		</div>
 		
 		
@@ -36,6 +36,9 @@
 
 		<!--zooming lib-->
 <script src="libs/jquery.zoomooz.min.js"></script>
+		
+		<!-- interact lib-->
+		<script src="libs/interact.min.js"></script>
 
 <!--Own JavaScript -->
 <script type="text/javascript" src="assets/js/main.js">
