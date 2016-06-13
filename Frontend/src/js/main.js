@@ -5,7 +5,7 @@ $(document).ready(function () {
 	
     jsPlumb.ready(function(){
 	storyTree.drawRandTree();
-	//storyTree.buildTree();
+	//storyTree.drawTreeRoot();
 		//init();
 	});
 

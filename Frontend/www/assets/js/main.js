@@ -25,18 +25,15 @@ function node(id, x, y, parentId) {
 
 	var h = NODE_SIZE / 2;
 	$node.css({
-		'left': (x-h) + 'px',
-		'top': (y-h) + 'px',
+		'left': (x - h) + 'px',
+		'top': (y - h) + 'px',
 		'line-height': NODE_SIZE + 'px'
 	});
-
-	console.warn(NODE_SIZE);
 
 	$node.zoomTarget();
 	$canvas.append($node);
 	//drawing lines
 	if (parentId) {
-		console.warn(parentId + ' + ' + id);
 		jsPlumb.connect({
 			source: parentId,
 			target: id,
@@ -208,25 +205,37 @@ function random_tree(depth, min_children) {
 	return new Tree('' + node_label++, children)
 }
 
+var _repaintTree = function(treeRoot){
+	$canvas.html('');
+	// Label it with node offsets and get its extent.
+	e = treeRoot.extent();
+
+	// Retrieve a bounding box [x,y,width,height] from the extent.
+	bb = bounding_box(e)
+
+	// Label each node with its (x,y) coordinate placing root at given location.
+	treeRoot.place(-bb[0] + HORIZONTAL_GAP, -bb[1] + HORIZONTAL_GAP)
+
+	// Draw using the divs.
+	treeRoot.draw();
+}
+
 var drawRandTree = function () {
 
 	//window.scroll((storyTree.$canvas.width()-window.innerWidth)/2,0);	
 	var tree;
 	// Generate a random tree.
 	tree = random_tree(10, 2)
+console.log(tree);
+	//draw it 
+	_repaintTree(tree);
+	
+}
 
-	console.log(tree);
-	// Label it with node offsets and get its extent.
-	e = tree.extent();
-
-	// Retrieve a bounding box [x,y,width,height] from the extent.
-	bb = bounding_box(e)
-
-	// Label each node with its (x,y) coordinate placing root at given location.
-	tree.place(-bb[0] + HORIZONTAL_GAP, -bb[1] + HORIZONTAL_GAP)
-
-	// Draw using the labels.
-	tree.draw();
+var drawTreeRoot = function(){
+	var id=0;
+	var treeRoot = new Tree(id.toString, []);
+	_repaintTree(treeRoot);
 }
 
 //////////////
@@ -236,7 +245,7 @@ var drawRandTree = function () {
 exports.$canvas = $canvas;
 
 exports.drawRandTree = drawRandTree;
-
+exports.drawTreeRoot = drawTreeRoot;
 },{"./templates":3,"jsPlumb":10}],2:[function(require,module,exports){
 
 var storyTree = require('./StoryTree.js');
@@ -245,7 +254,7 @@ $(document).ready(function () {
 	
     jsPlumb.ready(function(){
 	storyTree.drawRandTree();
-	//storyTree.buildTree();
+	//storyTree.drawTreeRoot();
 		//init();
 	});
 
