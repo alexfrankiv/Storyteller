@@ -3,75 +3,56 @@ var Templates = require('./templates');
 var jsPlumb = require('jsPlumb');
 var $canvas = $('#canvas');
 
-///////////////////////
-var node_size = 100
-var horizontal_gap = 75
-var vertical_gap = 50
+var DEFAULT_NODE = {
+	title: 'New title',
+	message: 'Here\'s a piece of story',
+	id: null,
+	children: []
+}
+var NODE_SIZE = 210;
+var HORIZONTAL_GAP = 100;
+var VERTICAL_GAP = 100;
 
-// Draw a graph node.
-function node(lbl, x, y, sz) {
-	if (!sz) sz = node_size
-	var h = sz / 2
-	var $node = $($.parseHTML('<div class="node" id="' + lbl + '" style="left:' + (x - h) + 'px;top:' + (y - h) +
-		'px;width:' + sz + 'px;height:' + sz + 'px;line-height:' + sz +
-		'px;">' + lbl + '</div>'));
+// Draw a graph node with lines.
+function node(id, x, y, parentId) {
+	var html_code = Templates.StoryTree_Node({
+		id: id,
+		title: DEFAULT_NODE.title,
+		message: DEFAULT_NODE.message
+	});
+	var $node = $(html_code);
+
+	var h = NODE_SIZE / 2;
+	$node.css({
+		'left': (x-h) + 'px',
+		'top': (y-h) + 'px',
+		'line-height': NODE_SIZE + 'px'
+	});
+
+	console.warn(NODE_SIZE);
+
 	$node.zoomTarget();
 	$canvas.append($node);
-}
-
-// Draw a 1-pixel black dot.
-function dot(x, y) {
-	$canvas.append($.parseHTML('<div class="dot" style="left:' + x + 'px;top:' + y + 'px;"></div>'));
-}
-
-// Draw a line between two points.  Slow but sure...
-function arc(parent, child) {
-	console.warn(parent + ' + ' + child);
-	jsPlumb.connect({
-			source: parent,
-			target: child,
+	//drawing lines
+	if (parentId) {
+		console.warn(parentId + ' + ' + id);
+		jsPlumb.connect({
+			source: parentId,
+			target: id,
 			anchor: ["Top", "Bottom"],
 			connector: ["Straight"],
 			endpoint: "Blank"
-	});
-/*var dx = x1 - x0
-var dy = y1 - y0
-var x = x0
-var y = y0
-if (abs(dx) > abs(dy)) {
-	var yinc = dy / dx
-	if (dx < 0)
-		while (x >= x1) {
-			dot(x, y);
-			--x;
-			y -= yinc
-		} else
-		while (x <= x1) {
-			dot(x, y);
-			++x;
-			y += yinc
-		}
-} else {
-	var xinc = dx / dy
-	if (dy < 0)
-		while (y >= y1) {
-			dot(x, y);
-			--y;
-			x -= xinc
-		} else
-		while (y <= y1) {
-			dot(x, y);
-			++y;
-			x += xinc
-		}
-}*/
+		});
+	}
 }
 
 // Tree node.
-function Tree(lbl, children) {
-	this.lbl = lbl
+function Tree(id, children) {
+	this.id = id
 	this.children = children ? children : []
-		// This will be filled with the x-offset of this node wrt its parent.
+	this.message = DEFAULT_NODE.message;
+	this.title = DEFAULT_NODE.title;
+	// This will be filled with the x-offset of this node wrt its parent.
 	this.offset = 0
 		// Optional coordinates that can be written by place(x, y)
 	this.x = 0
@@ -86,7 +67,7 @@ Tree.prototype.is_leaf = function () {
 // information created by extent().
 Tree.prototype.place = function (x, y) {
 	var n_children = this.children.length
-	var y_children = y + vertical_gap + node_size
+	var y_children = y + VERTICAL_GAP + NODE_SIZE
 	for (var i = 0; i < n_children; i++) {
 		var child = this.children[i]
 		child.place(x + child.offset, y_children)
@@ -96,22 +77,12 @@ Tree.prototype.place = function (x, y) {
 }
 
 // Draw the tree after it has been labeled w ith extent() and place().
-Tree.prototype.draw = function () {
+Tree.prototype.draw = function (parentId) {
 	var n_children = this.children.length
-	node(this.lbl, this.x, this.y)
+	node(this.id, this.x, this.y, parentId)
 	for (var i = 0; i < n_children; i++) {
 		var child = this.children[i];
-		//arc(this.lbl, child.lbl);
-		child.draw();
-	}
-}
-
-Tree.prototype.drawLines = function () {
-	var n_children = this.children.length
-	for (var i = 0; i < n_children; i++) {
-		var child = this.children[i];
-		arc(this.lbl, child.lbl);
-		child.drawLines();
+		child.draw(this.id);
 	}
 }
 
@@ -141,7 +112,7 @@ Tree.prototype.extent = function () {
 			// Find the necessary offset.
 		offset = 0
 		for (var j = 0; j < min(ext.length, rightmost.length); j++)
-			offset = max(offset, rightmost[j] - ext[j][0] + horizontal_gap)
+			offset = max(offset, rightmost[j] - ext[j][0] + HORIZONTAL_GAP)
 			// Update rightmost
 		for (var j = 0; j < ext.length; j++)
 			if (j < rightmost.length)
@@ -182,7 +153,7 @@ Tree.prototype.extent = function () {
 		this.children[i].offset -= 0.5 * offset
 
 	// Merge the offset extents of the children into one for this tree
-	var rtn = [[-0.5 * node_size, 0.5 * node_size]]
+	var rtn = [[-0.5 * NODE_SIZE, 0.5 * NODE_SIZE]]
 		// Keep track of subtrees currently on left and right edges.
 	var lft = 0
 	var rgt = n_children - 1
@@ -208,7 +179,7 @@ function bounding_box(extent) {
 		x0 = min(x0, extent[i][0])
 		x1 = max(x1, extent[i][1])
 	}
-	return [x0, -0.5 * node_size, x1 - x0, (node_size + vertical_gap) * extent.length - vertical_gap]
+	return [x0, -0.5 * NODE_SIZE, x1 - x0, (NODE_SIZE + VERTICAL_GAP) * extent.length - VERTICAL_GAP]
 }
 
 function min(x, y) {
@@ -237,6 +208,7 @@ function random_tree(depth, min_children) {
 }
 
 var drawRandTree = function () {
+
 	//window.scroll((storyTree.$canvas.width()-window.innerWidth)/2,0);	
 	var tree;
 	// Generate a random tree.
@@ -250,78 +222,16 @@ var drawRandTree = function () {
 	bb = bounding_box(e)
 
 	// Label each node with its (x,y) coordinate placing root at given location.
-	tree.place(-bb[0] + horizontal_gap, -bb[1] + horizontal_gap)
+	tree.place(-bb[0] + HORIZONTAL_GAP, -bb[1] + HORIZONTAL_GAP)
 
 	// Draw using the labels.
 	tree.draw();
-	tree.drawLines();
 }
 
-///////////////////////
+//////////////
+///EXPORTS///
+/////////////
 
-var defaultNode = {
-		title: 'New title',
-		message: 'Here\'s a piece of story',
-		id: null,
-		coord: {
-			ox: null,
-			oy: null
-		}
-	}
-	//default distance used in these funcs
-var dist = 150;
-
-var addOneNode = function (node, point, id) {
-	if (point) {
-		node.coord.ox = point.ox;
-		node.coord.oy = point.oy;
-	}
-	if (id) {
-		node.id = id;
-	}
-	var html_code = Templates.StoryTree_Node(node);
-
-	var $node = $(html_code);
-
-	$node.find('.add-child').click(function () {
-		console.log('add-child!' + $canvas.width());
-		addOneNode(defaultNode, {
-			ox: $node.position().left,
-			oy: $node.position().top + dist
-		}, $node.attr('id') * 3 + 1);
-		jsPlumb.connect({
-			connector: "Straight",
-			source: $node.attr('id'),
-			target: $node.attr('id') * 3 + 1,
-			anchor: ["Bottom", "Top"],
-			endpoint: "Blank"
-		});
-	});
-	$node.css({
-		top: node.coord.oy,
-		left: node.coord.ox
-	});
-	$node.attr('id', node.id);
-	if (node.coord.ox > 2 / 3 * $canvas.width() || node.coord.oy > 2 / 3 * $canvas.height()) {
-		$canvas.css({
-			height: 2 * $canvas.height(),
-			width: 2 * $canvas.width()
-		});
-	}
-	$canvas.append($node);
-	//$node.zoomTarget();
-
-}
-
-var buildTree = function () {
-	//for test only! ROOT
-	addOneNode(defaultNode, {
-		ox: ($canvas.width() / 2),
-		oy: 100
-	}, 1);
-}
-
-exports.buildTree = buildTree;
 exports.$canvas = $canvas;
 
 exports.drawRandTree = drawRandTree;
