@@ -12,7 +12,7 @@ var vertical_gap = 50
 function node(lbl, x, y, sz) {
 	if (!sz) sz = node_size
 	var h = sz / 2
-	var $node = $($.parseHTML('<div class="node" id="'+lbl+'" style="left:' + (x - h) + 'px;top:' + (y - h) +
+	var $node = $($.parseHTML('<div class="node" id="' + lbl + '" style="left:' + (x - h) + 'px;top:' + (y - h) +
 		'px;width:' + sz + 'px;height:' + sz + 'px;line-height:' + sz +
 		'px;">' + lbl + '</div>'));
 	$node.zoomTarget();
@@ -28,41 +28,43 @@ function dot(x, y) {
 function arc(parent, child) {
 	console.warn(parent + ' + ' + child);
 	jsPlumb.connect({
-		source: parent,
-		target: child,
-		endpoint: "Rectangle"
+			source: parent,
+			target: child,
+			anchor: ["Top", "Bottom"],
+			connector: ["Straight"],
+			endpoint: "Blank"
 	});
-	/*var dx = x1 - x0
-	var dy = y1 - y0
-	var x = x0
-	var y = y0
-	if (abs(dx) > abs(dy)) {
-		var yinc = dy / dx
-		if (dx < 0)
-			while (x >= x1) {
-				dot(x, y);
-				--x;
-				y -= yinc
-			} else
-			while (x <= x1) {
-				dot(x, y);
-				++x;
-				y += yinc
-			}
-	} else {
-		var xinc = dx / dy
-		if (dy < 0)
-			while (y >= y1) {
-				dot(x, y);
-				--y;
-				x -= xinc
-			} else
-			while (y <= y1) {
-				dot(x, y);
-				++y;
-				x += xinc
-			}
-	}*/
+/*var dx = x1 - x0
+var dy = y1 - y0
+var x = x0
+var y = y0
+if (abs(dx) > abs(dy)) {
+	var yinc = dy / dx
+	if (dx < 0)
+		while (x >= x1) {
+			dot(x, y);
+			--x;
+			y -= yinc
+		} else
+		while (x <= x1) {
+			dot(x, y);
+			++x;
+			y += yinc
+		}
+} else {
+	var xinc = dx / dy
+	if (dy < 0)
+		while (y >= y1) {
+			dot(x, y);
+			--y;
+			x -= xinc
+		} else
+		while (y <= y1) {
+			dot(x, y);
+			++y;
+			x += xinc
+		}
+}*/
 }
 
 // Tree node.
@@ -99,8 +101,17 @@ Tree.prototype.draw = function () {
 	node(this.lbl, this.x, this.y)
 	for (var i = 0; i < n_children; i++) {
 		var child = this.children[i];
-		arc(this.lbl, child.lbl);
+		//arc(this.lbl, child.lbl);
 		child.draw();
+	}
+}
+
+Tree.prototype.drawLines = function () {
+	var n_children = this.children.length
+	for (var i = 0; i < n_children; i++) {
+		var child = this.children[i];
+		arc(this.lbl, child.lbl);
+		child.drawLines();
 	}
 }
 
@@ -242,7 +253,8 @@ var drawRandTree = function () {
 	tree.place(-bb[0] + horizontal_gap, -bb[1] + horizontal_gap)
 
 	// Draw using the labels.
-	tree.draw()
+	tree.draw();
+	tree.drawLines();
 }
 
 ///////////////////////
