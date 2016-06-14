@@ -2,7 +2,7 @@
 var Templates = require('./templates');
 var jsPlumb = require('jsPlumb');
 var $canvas = $('#canvas');
-
+//global const 
 var DEFAULT_NODE = {
 	title: 'New title',
 	message: 'Here\'s a piece of story',
@@ -12,6 +12,26 @@ var DEFAULT_NODE = {
 var NODE_SIZE = 210;
 var HORIZONTAL_GAP = 100;
 var VERTICAL_GAP = 100;
+var TREE_ROOT = new Tree(0, []);
+
+
+//special function that returns treeNode by id
+var _nodeById = function (id) {
+	//counting root
+	console.log(id + ' = (route for)');
+	var route = [];
+	while (id > 0) {
+		--id;
+		route.push(id % 3);
+		id = (id - id % 3) / 3;
+	}
+	//getting node from tree by route
+	var currentN = TREE_ROOT;
+	for (var i = route.length - 1; i >= 0; --i) {
+		currentN = currentN.children[route[i]];
+	}
+	return currentN;
+}
 
 // Draw a graph node with lines.
 function node(id, x, y, parentId) {
@@ -28,11 +48,20 @@ function node(id, x, y, parentId) {
 		'top': (y - h) + 'px',
 		'line-height': NODE_SIZE + 'px'
 	});
-
+	//add all jquery listeners to node here!
+	$node.find('.add-child').click(function (e) {
+		e.preventDefault();
+		var thisOne = _nodeById(id);
+		if (thisOne.children.length < 3) {
+			thisOne.children.push(new Tree(id * 3 + 1 + thisOne.children.length, []));
+			_repaintTree();
+		}
+	});
 	$node.zoomTarget();
 	$canvas.append($node);
 	//drawing lines
 	if (parentId) {
+		console.warn('before err: parent: ' + parentId + ' child: ' + id);
 		jsPlumb.connect({
 			source: parentId,
 			target: id,
@@ -40,7 +69,9 @@ function node(id, x, y, parentId) {
 			connector: ["Straight"],
 			endpoint: "Blank"
 		});
+		console.log('after err');
 	}
+
 }
 
 // Tree node.
@@ -76,7 +107,7 @@ Tree.prototype.place = function (x, y) {
 // Draw the tree after it has been labeled w ith extent() and place().
 Tree.prototype.draw = function (parentId) {
 	var n_children = this.children.length
-	node(this.id, this.x, this.y, parentId)
+	node(this.id, this.x, this.y, parentId);
 	for (var i = 0; i < n_children; i++) {
 		var child = this.children[i];
 		child.draw(this.id);
@@ -204,38 +235,39 @@ function random_tree(depth, min_children) {
 	return new Tree('' + node_label++, children)
 }
 
-var _repaintTree = function(treeRoot){
+var _repaintTree = function () {
 	$canvas.html('');
 	// Label it with node offsets and get its extent.
-	e = treeRoot.extent();
+	e = TREE_ROOT.extent();
 
 	// Retrieve a bounding box [x,y,width,height] from the extent.
 	bb = bounding_box(e)
 
 	// Label each node with its (x,y) coordinate placing root at given location.
-	treeRoot.place(-bb[0] + HORIZONTAL_GAP, -bb[1] + HORIZONTAL_GAP)
+	TREE_ROOT.place(-bb[0] + HORIZONTAL_GAP, -bb[1] + HORIZONTAL_GAP)
 
 	// Draw using the divs.
-	treeRoot.draw();
+	TREE_ROOT.draw();
+	//scroll so that TREE_ROOT's in the centre
+	//window.scroll(TREE_ROOT.x-window.innerWidth/2,0);
 }
 
 var drawRandTree = function () {
-
-	//window.scroll((storyTree.$canvas.width()-window.innerWidth)/2,0);	
-	var tree;
 	// Generate a random tree.
-	tree = random_tree(10, 2)
-console.log(tree);
+	TREE_ROOT = random_tree(10, 2)
+	console.log(TREE_ROOT);
 	//draw it 
-	_repaintTree(tree);
-	
+	_repaintTree(TREE_ROOT);
+
 }
 
-var drawTreeRoot = function(){
-	var id=0;
-	var treeRoot = new Tree(id.toString, []);
-	_repaintTree(treeRoot);
+var drawTreeRoot = function () {
+	//_nodeById(8);
+	//_nodeById(18);
+	//_nodeById(21);
+	_repaintTree(TREE_ROOT);
 }
+
 
 //////////////
 ///EXPORTS///
