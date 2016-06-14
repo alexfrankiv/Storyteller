@@ -4,6 +4,7 @@ var Templates = require('./templates');
 var jsPlumb = require('jsPlumb');
 var $canvas = $('#canvas');
 jsPlumb.setContainer($canvas);
+
 //global const 
 var DEFAULT_NODE = {
 	title: 'New title',
@@ -14,6 +15,7 @@ var DEFAULT_NODE = {
 var NODE_SIZE = 210;
 var HORIZONTAL_GAP = 100;
 var VERTICAL_GAP = 100;
+var MAX_CHILDREN = 3;
 var TREE_ROOT = new Tree(0, []);
 
 
@@ -23,8 +25,8 @@ var _nodeById = function (id) {
 	var route = [];
 	while (id > 0) {
 		--id;
-		route.push(id % 3);
-		id = (id - id % 3) / 3;
+		route.push(id % MAX_CHILDREN);
+		id = (id - id % MAX_CHILDREN) / MAX_CHILDREN;
 	}
 	//getting node from tree by route
 	var currentN = TREE_ROOT;
@@ -53,8 +55,8 @@ function node(id, x, y, parentId) {
 	$node.find('.add-child').click(function (e) {
 		e.preventDefault();
 		var thisOne = _nodeById(id);
-		if (thisOne.children.length < 3) {
-			thisOne.children.push(new Tree(id * 3 + 1 + thisOne.children.length, []));
+		if (thisOne.children.length < MAX_CHILDREN) {
+			thisOne.children.push(new Tree(id * MAX_CHILDREN + 1 + thisOne.children.length, []));
 			_repaintTree();
 		}
 	});
@@ -97,7 +99,6 @@ Tree.prototype.draw = function (parentId) {
 	var n_children = this.children.length;
 	node(this.id, this.x, this.y, parentId);
 	if (parentId!==undefined&&parentId!==null) {
-		console.log(parentId);
 		jsPlumb.connect({
 			source: parentId.toString(),
 			target: this.id.toString(),
@@ -234,28 +235,25 @@ function random_tree(depth, min_children) {
 }
 
 var _repaintTree = function () {
+	//total kill =)
 	$canvas.html('');
+	jsPlumb.detachEveryConnection();
+	jsPlumb.deleteEveryEndpoint();
 	// Label it with node offsets and get its extent.
 	e = TREE_ROOT.extent();
-
 	// Retrieve a bounding box [x,y,width,height] from the extent.
-	bb = bounding_box(e)
-
+	bb = bounding_box(e);
 	// Label each node with its (x,y) coordinate placing root at given location.
-	TREE_ROOT.place(-bb[0] + HORIZONTAL_GAP, -bb[1] + HORIZONTAL_GAP)
-
+	TREE_ROOT.place(-bb[0] + HORIZONTAL_GAP, -bb[1] + HORIZONTAL_GAP);
 	// Draw using the divs.
-	jsPlumb.repaintEverything();
 	TREE_ROOT.draw();
-	///TREE_ROOT.drawLines();
 	//scroll so that TREE_ROOT's in the centre
 	//window.scroll(TREE_ROOT.x-window.innerWidth/2,0);
 }
 
 var drawRandTree = function () {
 	// Generate a random tree.
-	TREE_ROOT = random_tree(10, 2)
-	console.log(TREE_ROOT);
+	TREE_ROOT = random_tree(10, 2);
 	//draw it 
 	_repaintTree(TREE_ROOT);
 
