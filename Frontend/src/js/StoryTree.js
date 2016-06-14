@@ -2,6 +2,7 @@
 var Templates = require('./templates');
 var jsPlumb = require('jsPlumb');
 var $canvas = $('#canvas');
+jsPlumb.setContainer($canvas);
 //global const 
 var DEFAULT_NODE = {
 	title: 'New title',
@@ -17,8 +18,7 @@ var TREE_ROOT = new Tree(0, []);
 
 //special function that returns treeNode by id
 var _nodeById = function (id) {
-	//counting root
-	console.log(id + ' = (route for)');
+	//counting route
 	var route = [];
 	while (id > 0) {
 		--id;
@@ -59,19 +59,6 @@ function node(id, x, y, parentId) {
 	});
 	$node.zoomTarget();
 	$canvas.append($node);
-	//drawing lines
-	if (parentId) {
-		console.warn('before err: parent: ' + parentId + ' child: ' + id);
-		jsPlumb.connect({
-			source: parentId,
-			target: id,
-			anchor: ["Top", "Bottom"],
-			connector: ["Straight"],
-			endpoint: "Blank"
-		});
-		console.log('after err');
-	}
-
 }
 
 // Tree node.
@@ -106,8 +93,18 @@ Tree.prototype.place = function (x, y) {
 
 // Draw the tree after it has been labeled w ith extent() and place().
 Tree.prototype.draw = function (parentId) {
-	var n_children = this.children.length
+	var n_children = this.children.length;
 	node(this.id, this.x, this.y, parentId);
+	if (parentId!==undefined&&parentId!==null) {
+		console.log(parentId);
+		jsPlumb.connect({
+			source: parentId.toString(),
+			target: this.id.toString(),
+			connector: ["Straight"],
+			anchor: ["Bottom", "Top"],
+			endpoint: "Blank"
+		});
+	}
 	for (var i = 0; i < n_children; i++) {
 		var child = this.children[i];
 		child.draw(this.id);
@@ -247,7 +244,9 @@ var _repaintTree = function () {
 	TREE_ROOT.place(-bb[0] + HORIZONTAL_GAP, -bb[1] + HORIZONTAL_GAP)
 
 	// Draw using the divs.
+	jsPlumb.repaintEverything();
 	TREE_ROOT.draw();
+	///TREE_ROOT.drawLines();
 	//scroll so that TREE_ROOT's in the centre
 	//window.scroll(TREE_ROOT.x-window.innerWidth/2,0);
 }
