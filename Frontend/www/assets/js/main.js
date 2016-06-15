@@ -302,18 +302,17 @@ exports.drawRandTree = drawRandTree;
 exports.drawTreeRoot = drawTreeRoot;
 
 },{"./templates":3,"jsPlumb":10}],2:[function(require,module,exports){
-
 var storyTree = require('./StoryTree.js');
 
-$(document).ready(function () {	
-	
-    jsPlumb.ready(function(){
-	//storyTree.drawRandTree();
-	storyTree.drawTreeRoot();
-		//init();
+$(document).ready(function () {
+
+	jsPlumb.ready(function () {
+		//storyTree.drawRandTree();
+		storyTree.drawTreeRoot();
 	});
 
 });
+
 },{"./StoryTree.js":1}],3:[function(require,module,exports){
 
 var ejs = require('ejs');
