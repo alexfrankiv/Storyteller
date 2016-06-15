@@ -59,13 +59,24 @@ function node(id, x, y, parentId) {
 			_repaintTree();
 		}
 	});
+	$node.find('.self-remove').click(function(e){
+		e.preventDefault();
+		var thisOne = _nodeById(parentId);
+		console.warn(thisOne.children);
+		thisOne.children.splice(((id-1)%3),1);
+		console.error(thisOne.children);
+		console.log(parentId+' : '+((id-1)%3));
+		console.log('state of tree: ');
+		console.log(TREE_ROOT);
+		_repaintTree();
+	});
 	$node.zoomTarget();
 	$canvas.append($node);
 }
 
 // Tree node.
 function Tree(id, children) {
-	this.id = id
+	this.id = id;
 	this.children = children ? children : []
 	this.message = DEFAULT_NODE.message;
 	this.title = DEFAULT_NODE.title;
@@ -108,7 +119,7 @@ Tree.prototype.draw = function (parentId) {
 	}
 	for (var i = 0; i < n_children; i++) {
 		var child = this.children[i];
-		child.draw(this.id);
+			child.draw(this.id);
 	}
 }
 
@@ -146,6 +157,7 @@ Tree.prototype.extent = function () {
 			else
 				rightmost.push(offset + ext[j][1])
 		this.children[i].offset = offset
+		
 	}
 	rightmost = null // Gc, come get it.
 
@@ -172,6 +184,7 @@ Tree.prototype.extent = function () {
 		} else {
 			if (!this.children[i].is_leaf()) state = 1
 		}
+	
 	}
 
 	// Adjust to center the root on its children
@@ -259,9 +272,6 @@ var drawRandTree = function () {
 }
 
 var drawTreeRoot = function () {
-	//_nodeById(8);
-	//_nodeById(18);
-	//_nodeById(21);
 	_repaintTree(TREE_ROOT);
 }
 
