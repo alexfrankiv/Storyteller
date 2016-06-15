@@ -20,18 +20,27 @@ var TREE_ROOT = new Tree(0, []);
 
 
 //special function that returns treeNode by id
+//uses search for id through array
+//commented part is for faster way but no node mixes are allowed
+//that's why we can't use this if we want to be able to delete ANY node
 var _nodeById = function (id) {
 	//counting route
 	var route = [];
 	while (id > 0) {
-		--id;
+		/*--id;
 		route.push(id % MAX_CHILDREN);
-		id = (id - id % MAX_CHILDREN) / MAX_CHILDREN;
+		id = (id - id % MAX_CHILDREN) / MAX_CHILDREN;*/
+		route.push(id);
+		--id;
+		id = Math.floor(id / MAX_CHILDREN);
 	}
 	//getting node from tree by route
 	var currentN = TREE_ROOT;
 	for (var i = route.length - 1; i >= 0; --i) {
-		currentN = currentN.children[route[i]];
+		currentN = currentN.children[currentN.children.map(function (x) {
+			return x.id;
+		}).indexOf(route[i])];
+		//currentN.children[route[i]];
 	}
 	return currentN;
 }
@@ -44,7 +53,8 @@ function node(id, x, y, parentId) {
 		message: DEFAULT_NODE.message
 	});
 	var $node = $(html_code);
-
+	if(id==0)
+		$node.find('.self-remove').hide();
 	var h = NODE_SIZE / 2;
 	$node.css({
 		'left': (x - h) + 'px',
@@ -56,19 +66,26 @@ function node(id, x, y, parentId) {
 		e.preventDefault();
 		var thisOne = _nodeById(id);
 		if (thisOne.children.length < MAX_CHILDREN) {
-			thisOne.children.push(new Tree(id * MAX_CHILDREN + 1 + thisOne.children.length, []));
+			var childId = id * MAX_CHILDREN;
+			do {
+				childId++;
+				if (thisOne.children.map(function (x) {
+						return x.id;
+					}).indexOf(childId) === -1)
+					break;
+			} while (childId % MAX_CHILDREN !== 0);
+			thisOne.children.push(new Tree(childId, []));
 			_repaintTree();
 		}
 	});
-	$node.find('.self-remove').click(function(e){
+	$node.find('.self-remove').click(function (e) {
 		e.preventDefault();
 		var thisOne = _nodeById(parentId);
-		console.warn(thisOne.children);
-		thisOne.children.splice(((id-1)%3),1);
-		console.error(thisOne.children);
-		console.log(parentId+' : '+((id-1)%3));
-		console.log('state of tree: ');
-		console.log(TREE_ROOT);
+		thisOne.children.splice(thisOne.children.map(function (x) {
+			return x.id;
+		}).indexOf(id), 1);
+		//thisOne.children[(id - 1) % 3] = null;
+		console.log(thisOne.children.length);
 		_repaintTree();
 	});
 	$node.zoomTarget();
@@ -98,7 +115,7 @@ Tree.prototype.place = function (x, y) {
 	var n_children = this.children.length
 	var y_children = y + VERTICAL_GAP + NODE_SIZE
 	for (var i = 0; i < n_children; i++) {
-		var child = this.children[i]
+		var child = this.children[i];
 		child.place(x + child.offset, y_children)
 	}
 	this.x = x
@@ -109,7 +126,7 @@ Tree.prototype.place = function (x, y) {
 Tree.prototype.draw = function (parentId) {
 	var n_children = this.children.length;
 	node(this.id, this.x, this.y, parentId);
-	if (parentId!==undefined&&parentId!==null) {
+	if (parentId !== undefined && parentId !== null) {
 		jsPlumb.connect({
 			source: parentId.toString(),
 			target: this.id.toString(),
@@ -120,7 +137,7 @@ Tree.prototype.draw = function (parentId) {
 	}
 	for (var i = 0; i < n_children; i++) {
 		var child = this.children[i];
-			child.draw(this.id);
+		child.draw(this.id);
 	}
 }
 
@@ -146,8 +163,8 @@ Tree.prototype.extent = function () {
 	var rightmost = []
 	var offset = 0
 	for (i = 0; i < n_children; i++) {
-		var ext = child_extents[i]
-			// Find the necessary offset.
+		var ext = child_extents[i];
+		// Find the necessary offset.
 		offset = 0
 		for (var j = 0; j < min(ext.length, rightmost.length); j++)
 			offset = max(offset, rightmost[j] - ext[j][0] + HORIZONTAL_GAP)
@@ -158,7 +175,6 @@ Tree.prototype.extent = function () {
 			else
 				rightmost.push(offset + ext[j][1])
 		this.children[i].offset = offset
-		
 	}
 	rightmost = null // Gc, come get it.
 
@@ -185,7 +201,6 @@ Tree.prototype.extent = function () {
 		} else {
 			if (!this.children[i].is_leaf()) state = 1
 		}
-	
 	}
 
 	// Adjust to center the root on its children
