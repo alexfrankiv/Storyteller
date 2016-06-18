@@ -16,12 +16,7 @@ var HORIZONTAL_GAP = 100;
 var VERTICAL_GAP = 100;
 var MAX_CHILDREN = 3;
 var TREE_ROOT = new Tree(0, []);
-
-
-//to show popover
-$('div.story-node').click('shown.bs.modal', function () {
-  $('#editor').show()
-});
+var LAST_ADDED = TREE_ROOT;
 
 //special function that returns treeNode by id
 //uses search for id through array
@@ -57,7 +52,7 @@ function node(id, x, y, parentId) {
 		message: DEFAULT_NODE.message
 	});
 	var $node = $(html_code);
-	if(id==0)
+	if (id == 0)
 		$node.find('.self-remove').hide();
 	var h = NODE_SIZE / 2;
 	$node.css({
@@ -78,9 +73,11 @@ function node(id, x, y, parentId) {
 					}).indexOf(childId) === -1)
 					break;
 			} while (childId % MAX_CHILDREN !== 0);
-			thisOne.children.push(new Tree(childId, []));
+			LAST_ADDED = new Tree(childId, []);
+			thisOne.children.push(LAST_ADDED);
 			_repaintTree();
 		}
+		return false;
 	});
 	$node.find('.self-remove').click(function (e) {
 		e.preventDefault();
@@ -90,7 +87,14 @@ function node(id, x, y, parentId) {
 		}).indexOf(id), 1);
 		//thisOne.children[(id - 1) % 3] = null;
 		console.log(thisOne.children.length);
+		LAST_ADDED = thisOne;
 		_repaintTree();
+		return false;
+	});
+	$node.click(function(e){
+		e.preventDefault();
+		$('#editor').show();
+	console.log("editor popover");
 	});
 	//$node.zoomTarget();
 	$canvas.append($node);
@@ -280,7 +284,6 @@ var _repaintTree = function () {
 	// Draw using the divs.
 	TREE_ROOT.draw();
 	//scroll so that TREE_ROOT's in the centre
-	//window.scroll(TREE_ROOT.x-window.innerWidth/2,0);
 }
 
 var drawRandTree = function () {
