@@ -8,7 +8,15 @@
 
 	<!-- Bootsrap CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <!-- Loading Bootstrap for menu-->
+  <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
 
+  <!-- Loading Flat UI-->
+  <link rel="stylesheet" type="text/css" href="assets/css/main.css" />
+   
+  <!-- Loading SF Icons  -->
+  <link rel="stylesheet" href="assets/css/fontello-embedded.css">
+  <link rel="stylesheet" href="assets/css/animation.css">
 	<!-- LESS основний файл -->
 	<link rel="stylesheet/less" type="text/css" href="assets/less/main.less" />
 	<!-- LESS JavaScript компілятор -->
@@ -18,14 +26,131 @@
 
 <body id="body-elem" oncontextmenu="return false">
 
-	<div class="container-fluid">
+	<div class="container-fluid"><div class="navbar main-menu">
+  <ul class="nav">
+    <li><a href="#" class="menu-menu sficon-menu" title="Menu"></a></li>
+    <li><a href="#" class="menu-back icon-pencil" title="Create"></a></li>
+    <li><a href="#" class="menu-location icon-info" title="About" ></a></li>
+    
+    
+  </ul>
+</div><!-- /navbar -->
 
+<!--<div class="hide search-bar"><input id="global-search-bar" placeholder="Search by Keyword"  /><a id="global-search-submit" onClick="handleGlobalSearchBarClick($('#global-search-bar').val());">Press Enter</a></div>-->
+
+<div class="menu-bar">
+  <div class="relative">
+  <ul class="menu-list">
+    <li>
+        
+      <a href="#" class="menu-title">
+        <div class="button-wrap"><div href="#" class="btn btn-blend green action-close">Close</div></div>
+        Menu
+      </a>
+    </li>
+    
+    <li><a href="feature.cfm" class="">My stories</a></li>
+    
+    <li>
+      <a href="#" class="">Find sth to read</a>
+      <div class="submenu">
+          <ul class="menu-list">
+            <li>
+                      
+              <a href="#" class="menu-title">
+                Select Genre
+              </a>
+            </li>
+          <li class="menu-pad">
+            <a href="#">Drama</a>
+          </li>
+           <li class="menu-pad">
+            <a href="#" onClick="clearState();" >Romantic</a>
+          </li>
+             <li class="menu-pad">
+            <a href="#" onClick="clearState();" >Fairy Tale</a>
+          </li>
+           <li class="menu-pad">
+            <a href="#" onClick="clearState();" >Detective</a>
+          </li>
+            <li class="menu-pad">
+            <a href="#" onClick="clearState();" >Fantasy</a>
+          </li>
+           <li class="menu-pad">
+            <a href="#" onClick="clearState();" >Horror</a>
+          </li>
+             <li class="menu-pad">
+            <a href="#" onClick="clearState();" >Fanfiction</a>
+          </li>
+          </ul>
+        </div>
+          
+    </li>
+    
+
+ 
+
+
+  </ul>
+  </div><!-- /relative -->
+</div><!-- /menu-bar -->
+</div>
 		<!--<h1>Storyteller main Editor</h1>
 		<p> just simple text</p>
 		<h6> header 6</h6>-->
-		<div id="canvas">
-
+	<div class="container-canvas col-sm-9">
+    <div id="canvas" >
+        </div>
 		</div>
+    
+    
+    <div class="create-story-form col-sm-3">
+        
+        <form role="form">
+
+            <div class="form-group">
+    <label for="authors-name">Author's name:</label>
+    <input type="name" class="form-control" id="authors-name">
+  </div>
+  <div class="form-group">
+  <label for="description">Description:</label>
+  <textarea class="form-control" rows="8" id="description"></textarea>
+</div>
+            
+<div class="dropdown">
+  <button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown">Genre
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+
+          <li >
+            <a href="#">Drama</a>
+          </li>
+           <li>
+            <a href="#" >Romantic</a>
+          </li>
+             <li>
+            <a href="#">Fairy Tale</a>
+          </li>
+           <li>
+            <a href="#" >Detective</a>
+          </li>
+            <li>
+            <a href="#" >Fantasy</a>
+          </li>
+           <li>
+            <a href="#" >Horror</a>
+          </li>
+             <li>
+            <a href="#" >Fanfiction</a>
+          </li>
+          </ul>
+        </div>
+
+
+  <button type="submit" class="btn btn-default">Save</button>
+</form>
+
+    </div>
 
 
 		<!-- jQuery JavaScript -->
@@ -40,10 +165,19 @@
 		<!--Own JavaScript -->
 		<script type="text/javascript" src="assets/js/main.js">
 
+            
+            <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  <script src="assets/js/response.min.js"></script>  
+  <script src="assets/js/compressed.js"></script>
+  <script src="assets/js/custom.js"></script>
+   <script src="assets/js/Handlebars.js"></script>
+	 <script src="assets/js/moment.js"></script>
+	<script src="js/jquery.serializecfjson-0.2.min.js"></script>
 
 		</script>
 
-	</div>
+	
 </body>
 
 </html>

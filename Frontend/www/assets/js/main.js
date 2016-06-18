@@ -317,7 +317,7 @@ $(document).ready(function () {
 
 var ejs = require('ejs');
 
-exports.StoryTree_Node = ejs.compile("<div id=\"<%= id %>\" class=\"story-node\">\r\n\t<p class=\"story-node-text\">\r\n\t\t<%= message %>\r\n\t</p>\r\n\t<div class=\"btn btn-xs btn-success btn-circle add-child\">+</div>\r\n\t<div class=\"btn btn-xs btn-danger btn-circle self-remove\">-</div>\r\n</div>\r\n")
+exports.StoryTree_Node = ejs.compile("<div id=\"<%= id %>\" class=\"story-node\">\r\n    \r\n\t<p class=\"story-node-text\">\r\n\t\t<%= message %>\r\n        \r\n\t</p>\r\n    \r\n    \r\n\t<div class=\"btn btn-xs btn-success btn-circle add-child\">+</div>\r\n\t<div class=\"btn btn-xs btn-danger btn-circle self-remove\">-</div>\r\n</div>\r\n")
 },{"ejs":4}],4:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
@@ -1541,6 +1541,31 @@ var substr = 'ab'.substr(-1) === 'b'
 // shim for using process in browser
 
 var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+(function () {
+  try {
+    cachedSetTimeout = setTimeout;
+  } catch (e) {
+    cachedSetTimeout = function () {
+      throw new Error('setTimeout is not defined');
+    }
+  }
+  try {
+    cachedClearTimeout = clearTimeout;
+  } catch (e) {
+    cachedClearTimeout = function () {
+      throw new Error('clearTimeout is not defined');
+    }
+  }
+} ())
 var queue = [];
 var draining = false;
 var currentQueue;
@@ -1565,7 +1590,7 @@ function drainQueue() {
     if (draining) {
         return;
     }
-    var timeout = setTimeout(cleanUpNextTick);
+    var timeout = cachedSetTimeout(cleanUpNextTick);
     draining = true;
 
     var len = queue.length;
@@ -1582,7 +1607,7 @@ function drainQueue() {
     }
     currentQueue = null;
     draining = false;
-    clearTimeout(timeout);
+    cachedClearTimeout(timeout);
 }
 
 process.nextTick = function (fun) {
@@ -1594,7 +1619,7 @@ process.nextTick = function (fun) {
     }
     queue.push(new Item(fun, args));
     if (queue.length === 1 && !draining) {
-        setTimeout(drainQueue, 0);
+        cachedSetTimeout(drainQueue, 0);
     }
 };
 
@@ -5316,16 +5341,11 @@ process.umask = function() { return 0; };
                                 var dragEvent = jsPlumb.dragEvents.drag,
                                     stopEvent = jsPlumb.dragEvents.stop,
                                     startEvent = jsPlumb.dragEvents.start,
-                                    _del = _currentInstance.getElement(element),
-                                    _ancestor = _currentInstance.getDragManager().getDragAncestor(_del),
-                                    _noOffset = {left: 0, top: 0},
-                                    _ancestorOffset = _noOffset,
                                     _started = false;
 
                                 _manage(id, element);
 
                                 options[startEvent] = _ju.wrap(options[startEvent], function () {
-                                    _ancestorOffset = _ancestor != null ? _currentInstance.getOffset(_ancestor) : _noOffset;
                                     _currentInstance.setHoverSuspended(true);
                                     _currentInstance.select({source: element}).addClass(_currentInstance.elementDraggingClass + " " + _currentInstance.sourceElementDraggingClass, true);
                                     _currentInstance.select({target: element}).addClass(_currentInstance.elementDraggingClass + " " + _currentInstance.targetElementDraggingClass, true);
@@ -5339,10 +5359,6 @@ process.umask = function() { return 0; };
                                     // differs from getUIPosition so much
                                     var ui = _currentInstance.getUIPosition(arguments, _currentInstance.getZoom());
                                     if (ui != null) {
-                                        // adjust by ancestor offset if there is one: this is for the case that a draggable
-                                        // is contained inside some other element that is not the Container.
-                                        ui.left += _ancestorOffset.left;
-                                        ui.top += _ancestorOffset.top;
                                         _draw(element, ui, null, true);
                                         if (_started) _currentInstance.addClass(element, "jsplumb-dragged");
                                         _started = true;
@@ -5364,7 +5380,6 @@ process.umask = function() { return 0; };
                                     for (var i = 0; i < elements.length; i++)
                                         _one(elements[i]);
 
-                                    // this is common across all
                                     _started = false;
                                     _currentInstance.setHoverSuspended(false);
                                     _currentInstance.setConnectionBeingDragged(false);
@@ -6172,13 +6187,8 @@ process.umask = function() { return 0; };
                     fireDetachEvent(c, params.fireEvent === false ? false : !c.pending, params.originalEvent);
                     var doNotCleanup = params.deleteAttachedObjects == null ? null : !params.deleteAttachedObjects;
 
-                    // SP GROUPS. this works but blows up lots of original tests
                     c.endpoints[0].detachFromConnection(c, null, doNotCleanup);
                     c.endpoints[1].detachFromConnection(c, null, doNotCleanup);
-
-                    // SP GROUPS. this does not work but makes all the original tests work.
-                    //c.endpoints[0].detachFromConnection(c);
-                    //c.endpoints[1].detachFromConnection(c);
 
                     c.cleanup(true);
                     c.destroy(true);

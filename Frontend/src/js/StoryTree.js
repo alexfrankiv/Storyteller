@@ -18,6 +18,11 @@ var MAX_CHILDREN = 3;
 var TREE_ROOT = new Tree(0, []);
 
 
+//to show popover
+$('div.story-node').click('shown.bs.modal', function () {
+  $('#editor').show()
+});
+
 //special function that returns treeNode by id
 //uses search for id through array
 //commented part is for faster way but no node mixes are allowed
@@ -87,7 +92,7 @@ function node(id, x, y, parentId) {
 		console.log(thisOne.children.length);
 		_repaintTree();
 	});
-	$node.zoomTarget();
+	//$node.zoomTarget();
 	$canvas.append($node);
 }
 
