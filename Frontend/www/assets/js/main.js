@@ -13,11 +13,11 @@ var DEFAULT_NODE = {
 	children: []
 }
 var NODE_SIZE = 210;
-var HORIZONTAL_GAP = 100;
+var HORIZONTAL_GAP = 200;
 var VERTICAL_GAP = 100;
 var MAX_CHILDREN = 3;
 var TREE_ROOT = new Tree(0, []);
-var LAST_ADDED = TREE_ROOT;
+var LAST_ADDED = null;
 
 //special function that returns treeNode by id
 //uses search for id through array
@@ -74,8 +74,8 @@ function node(id, x, y, parentId) {
 					}).indexOf(childId) === -1)
 					break;
 			} while (childId % MAX_CHILDREN !== 0);
-			LAST_ADDED = new Tree(childId, []);
-			thisOne.children.push(LAST_ADDED);
+			thisOne.children.push(new Tree(childId, []));
+			LAST_ADDED = childId;
 			_repaintTree();
 		}
 		return false;
@@ -88,14 +88,15 @@ function node(id, x, y, parentId) {
 		}).indexOf(id), 1);
 		//thisOne.children[(id - 1) % 3] = null;
 		console.log(thisOne.children.length);
-		LAST_ADDED = thisOne;
+		LAST_ADDED = parentId;
+		console.log('changed LAST_ADDED to ' + LAST_ADDED);
 		_repaintTree();
 		return false;
 	});
-	$node.click(function(e){
+	$node.click(function (e) {
 		e.preventDefault();
 		$('#editor').show();
-	console.log("editor popover");
+		console.log("editor popover");
 	});
 	//$node.zoomTarget();
 	$canvas.append($node);
@@ -285,6 +286,13 @@ var _repaintTree = function () {
 	// Draw using the divs.
 	TREE_ROOT.draw();
 	//scroll so that TREE_ROOT's in the centre
+	//with lib
+	$('#'+LAST_ADDED).ScrollTo({
+		duration: 0,
+		callback: function(){
+			$('#'+LAST_ADDED).effect('shake', {}, 500);
+		}
+	});
 }
 
 var drawRandTree = function () {
@@ -314,7 +322,7 @@ var storyTree = require('./StoryTree.js');
 
 $(document).ready(function () {
 	///for testing only!
-	$( '#editor' ).hide();
+	//$( '#editor' ).hide();
 	///for testing only!
 	
 	jsPlumb.ready(function () {
@@ -328,7 +336,7 @@ $(document).ready(function () {
 
 var ejs = require('ejs');
 
-exports.StoryTree_Node = ejs.compile("<div id=\"<%= id %>\" class=\"story-node\">\r\n    \r\n\t<p class=\"story-node-text\">\r\n\t\t<%= message %>\r\n        \r\n\t</p>\r\n    \r\n    \r\n\t<div class=\"btn btn-xs btn-success btn-circle add-child\">+</div>\r\n    <div class=\"btn btn-xs btn-success btn-circle edit-btn\">e</div>\r\n    \r\n\t<div class=\"btn btn-xs btn-danger btn-circle self-remove\">-</div>\r\n</div>\r\n")
+exports.StoryTree_Node = ejs.compile("<div id=\"<%= id %>\" class=\"story-node\">\r\n\t<p class=\"story-node-text\">\r\n\t\t<%= message %>\r\n        \r\n\t</p>\r\n    \r\n    \r\n\t<div class=\"btn btn-xs btn-success btn-circle add-child\">+</div>\r\n    <div class=\"btn btn-xs btn-success btn-circle edit-btn\">e</div>\r\n    \r\n\t<div class=\"btn btn-xs btn-danger btn-circle self-remove\">-</div>\r\n</div>\r\n")
 },{"ejs":4}],4:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates

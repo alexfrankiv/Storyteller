@@ -12,11 +12,11 @@ var DEFAULT_NODE = {
 	children: []
 }
 var NODE_SIZE = 210;
-var HORIZONTAL_GAP = 100;
+var HORIZONTAL_GAP = 200;
 var VERTICAL_GAP = 100;
 var MAX_CHILDREN = 3;
 var TREE_ROOT = new Tree(0, []);
-var LAST_ADDED = TREE_ROOT;
+var LAST_ADDED = null;
 
 //special function that returns treeNode by id
 //uses search for id through array
@@ -73,8 +73,8 @@ function node(id, x, y, parentId) {
 					}).indexOf(childId) === -1)
 					break;
 			} while (childId % MAX_CHILDREN !== 0);
-			LAST_ADDED = new Tree(childId, []);
-			thisOne.children.push(LAST_ADDED);
+			thisOne.children.push(new Tree(childId, []));
+			LAST_ADDED = childId;
 			_repaintTree();
 		}
 		return false;
@@ -87,14 +87,15 @@ function node(id, x, y, parentId) {
 		}).indexOf(id), 1);
 		//thisOne.children[(id - 1) % 3] = null;
 		console.log(thisOne.children.length);
-		LAST_ADDED = thisOne;
+		LAST_ADDED = parentId;
+		console.log('changed LAST_ADDED to ' + LAST_ADDED);
 		_repaintTree();
 		return false;
 	});
-	$node.click(function(e){
+	$node.click(function (e) {
 		e.preventDefault();
 		$('#editor').show();
-	console.log("editor popover");
+		console.log("editor popover");
 	});
 	//$node.zoomTarget();
 	$canvas.append($node);
@@ -284,6 +285,13 @@ var _repaintTree = function () {
 	// Draw using the divs.
 	TREE_ROOT.draw();
 	//scroll so that TREE_ROOT's in the centre
+	//with lib
+	$('#'+LAST_ADDED).ScrollTo({
+		duration: 0,
+		callback: function(){
+			$('#'+LAST_ADDED).effect('shake', {}, 500);
+		}
+	});
 }
 
 var drawRandTree = function () {
