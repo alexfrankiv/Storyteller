@@ -94,7 +94,7 @@ function node(id, x, y, parentId) {
 	});
 	$node.click(function (e) {
 		e.preventDefault();
-		$('#editor').show();
+		$('#editor').modal();
 		console.log("editor popover");
 	});
 	//$node.zoomTarget();
