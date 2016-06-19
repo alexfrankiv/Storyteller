@@ -97,7 +97,6 @@ function node(id, x, y, parentId) {
 		$('#editor').modal();
 		console.log("editor popover");
 	});
-	//$node.zoomTarget();
 	$canvas.append($node);
 }
 
@@ -286,10 +285,10 @@ var _repaintTree = function () {
 	TREE_ROOT.draw();
 	//scroll so that TREE_ROOT's in the centre
 	//with lib
-	$('#'+LAST_ADDED).ScrollTo({
+	$('#' + LAST_ADDED).ScrollTo({
 		duration: 0,
-		callback: function(){
-			$('#'+LAST_ADDED).effect('shake', {}, 500);
+		callback: function () {
+			$('#' + LAST_ADDED).effect('shake', {}, 500);
 		}
 	});
 }

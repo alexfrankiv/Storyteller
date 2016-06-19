@@ -98,7 +98,6 @@ function node(id, x, y, parentId) {
 		$('#editor').modal();
 		console.log("editor popover");
 	});
-	//$node.zoomTarget();
 	$canvas.append($node);
 }
 
@@ -287,10 +286,10 @@ var _repaintTree = function () {
 	TREE_ROOT.draw();
 	//scroll so that TREE_ROOT's in the centre
 	//with lib
-	$('#'+LAST_ADDED).ScrollTo({
+	$('#' + LAST_ADDED).ScrollTo({
 		duration: 0,
-		callback: function(){
-			$('#'+LAST_ADDED).effect('shake', {}, 500);
+		callback: function () {
+			$('#' + LAST_ADDED).effect('shake', {}, 500);
 		}
 	});
 }
@@ -336,7 +335,7 @@ $(document).ready(function () {
 
 var ejs = require('ejs');
 
-exports.StoryTree_Node = ejs.compile("<div id=\"<%= id %>\" class=\"story-node\">\r\n\t<p class=\"story-node-text\">\r\n\t\t<%= message %>\r\n        \r\n\t</p>\r\n    \r\n    \r\n\t<div class=\"btn btn-xs btn-success btn-circle add-child\">+</div>\r\n    <div class=\"btn btn-xs btn-success btn-circle edit-btn\">e</div>\r\n    \r\n\t<div class=\"btn btn-xs btn-danger btn-circle self-remove\">-</div>\r\n</div>\r\n")
+exports.StoryTree_Node = ejs.compile("<div id=\"<%= id %>\" class=\"story-node\">\r\n\t<p class=\"story-node-text\">\r\n\t\t<%= message %>\r\n\r\n\t</p>\r\n\t<div class=\"btn btn-xs btn-success btn-circle add-child\">+</div>\r\n\t<div class=\"btn btn-xs btn-success btn-circle edit-btn\">e</div>\r\n\t<div class=\"btn btn-xs btn-danger btn-circle self-remove\">-</div>\r\n</div>\r\n")
 },{"ejs":4}],4:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
