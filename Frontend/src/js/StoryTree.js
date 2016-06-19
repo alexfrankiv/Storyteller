@@ -18,6 +18,8 @@ var MAX_CHILDREN = 3;
 var TREE_ROOT = new Tree(0, []);
 var LAST_ADDED = null;
 
+
+var curId = 0;
 //special function that returns treeNode by id
 //uses search for id through array
 //commented part is for faster way but no node mixes are allowed
@@ -73,7 +75,11 @@ function node(id, x, y, parentId) {
 					}).indexOf(childId) === -1)
 					break;
 			} while (childId % MAX_CHILDREN !== 0);
+            
+            
 			thisOne.children.push(new Tree(childId, []));
+            
+            
 			LAST_ADDED = childId;
 			_repaintTree();
 		}
@@ -95,11 +101,28 @@ function node(id, x, y, parentId) {
 	$node.click(function (e) {
 		e.preventDefault();
 		$('#editor').modal();
+        
 		console.log("editor popover");
+        
+        
 	});
 	$canvas.append($node);
 }
-
+$node.find('#btn-save').click(function (e) {
+    //added
+            if(thisOne.children.length == 1)
+                $("#center").editor($node.find('#btn-save'));
+            else if(thisOne.children.length ==2){
+                $("#left").text();
+                $("#center").text("");
+                $("#right").text();
+            }else if(thisOne.children.length == 3){
+                $("#left").text();
+                $("#center").text();
+                $("#right").text();
+            }
+    
+}
 // Tree node.
 function Tree(id, children) {
 	this.id = id;
