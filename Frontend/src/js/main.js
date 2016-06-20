@@ -1,6 +1,9 @@
 var storyTree = require('./StoryTree.js');
+var api = require("../../../Backend/api");
 
 $(document).ready(function () {
+   
+
 	///for testing only!
 	$('#editor').on('hide.bs.modal', function () {
 		$('#editor-title').val('');
@@ -29,7 +32,16 @@ $(document).ready(function () {
 			genre: $('#genre').val()
 		};
 		console.log(storyObject);
+        alert("Before saving"+storyObject);
+      
 		//save story method should be here!
+        api.createOrder(storyObject,function(err,data){
+            if(!err){
+               alert("Check for saving");
+            }else{
+               alert("not saved");
+            }
+        });
 		return true;
 	});
 	///for testing only!

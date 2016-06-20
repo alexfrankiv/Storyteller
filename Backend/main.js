@@ -2,8 +2,19 @@ var express = require('express');
 var path = require('path');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
-
+var mongoose = require('mongoose');
 function configureEndpoints(app) {
+    mongoose.connect("mongodb://localhost/test");
+    var Cat = mongoose.model('Cat', { name: String });
+
+var kitty = new Cat({ name: 'Zildjian' });
+kitty.save(function (err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('meow');
+  }
+});
     var pages = require('./pages');
     var api = require('./api');
 
@@ -11,10 +22,10 @@ function configureEndpoints(app) {
     //Отримання списку піц
     //app.get('/api/get-pizza-list/', api.getPizzaList);
     //app.post('/api/create-order/', api.createOrder);
-app.get('api/show-stories/',api.show);
-    app.post('api/delete-one/',api.delete);
-    app.post('api/save-story/',api.create);
-    api.post('api/find-one-and-update/',api.findOneAndUpdate);
+app.get('/api/show-stories/',api.show);
+    app.post('/api/delete-one/',api.delete);
+    app.post('/api/save-story/',api.create);
+    app.post('/api/find-one-and-update/',api.findOneAndUpdate);
     
     //Сторінки
     //Головна сторінка
