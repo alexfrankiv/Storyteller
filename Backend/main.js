@@ -5,13 +5,17 @@ var bodyParser = require('body-parser');
 
 function configureEndpoints(app) {
     var pages = require('./pages');
-    //var api = require('./api');
+    var api = require('./api');
 
     //Налаштування URL за якими буде відповідати сервер
     //Отримання списку піц
     //app.get('/api/get-pizza-list/', api.getPizzaList);
     //app.post('/api/create-order/', api.createOrder);
-
+app.get('api/show-stories/',api.show);
+    app.post('api/delete-one/',api.delete);
+    app.post('api/save-story/',api.create);
+    api.post('api/find-one-and-update/',api.findOneAndUpdate);
+    
     //Сторінки
     //Головна сторінка
     app.get('/', pages.mainPage);

@@ -1,6 +1,6 @@
 var mongoose = require( 'mongoose' );
 
-var Schema   = mongoose.Schema
+var Schema   = mongoose.Schema;
 
 var Node = new Schema {
     title: String,
@@ -33,7 +33,7 @@ var storyObject =new Schema{
 exports.nodeModel= nodeModel;
 exports.treeModel= treeModel;
 exports.storyModel = storyModel;
-exports.create(function(req,res){
+exports.create = function(req,res){
     new storyModel({
        title:req.body.title,
         root:req.body.root,
@@ -57,7 +57,7 @@ console.log("Saved story");}else{
             res.send(stories);
         }
     });
-}
+};
 exports.delete= function(req,res){
     storyModel.find({'title':req.body.title,'root':req.body.root,'author':req.body.author,'description':req.body.description,'genre':req.body.genre},function(err,story){
         if(err){
@@ -67,17 +67,28 @@ console.log("have not found anything to delete");}else{
     });
 }
     });
-}
+};
+
+   exports.findOneAndUpdate = function(req,req){
+       storyModel.findOneAndUpdate({'title':req.body.title,'root':req.body.root,'author':req.body.author,'description':req.body.description,'genre':req.body.genre}),function(err,story){
+if(err){
+console.log("Failed to load story");}else{
+    console.log("One story is successfully updated");
+}}
+   }  ;
+   
+ 
 
         
         
         
-        
-        
-        
-    })
-}              
+  
 
-
-//mongoose.connect( 'mongodb://localhost/3001' );
-
+ var db = mongoose.connect( 'mongodb://localhost:27017' );
+ 
+db.on('error', function (err) {
+console.log('connection error', err);
+});
+db.once('open', function () {
+console.log('connected.');
+});
