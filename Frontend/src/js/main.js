@@ -1,5 +1,5 @@
 var storyTree = require('./StoryTree.js');
-var api = require("../../../Backend/api");
+var api = require("./api.js");
 
 $(document).ready(function () {
    
@@ -35,11 +35,11 @@ $(document).ready(function () {
         alert("Before saving"+storyObject);
       
 		//save story method should be here!
-        api.createOrder(storyObject,function(err,data){
+        api.create(storyObject,function(err,data){
             if(!err){
-               alert("Check for saving");
+               console.log("Check for saving");
             }else{
-               alert("not saved");
+               console.log("not saved");
             }
         });
 		return true;
