@@ -16,7 +16,7 @@ var HORIZONTAL_GAP = 200;
 var VERTICAL_GAP = 100;
 var MAX_CHILDREN = 3;
 var TREE_ROOT = new Tree(0, []);
-var LAST_ADDED = null;
+var LAST_MOD = null;
 
 
 var curId = 0;
@@ -80,7 +80,7 @@ function node(id, x, y, parentId) {
 			thisOne.children.push(new Tree(childId, []));
             
             
-			LAST_ADDED = childId;
+			LAST_MOD = childId;
 			_repaintTree();
 		}
 		return false;
@@ -92,36 +92,36 @@ function node(id, x, y, parentId) {
 			return x.id;
 		}).indexOf(id), 1);
 		//thisOne.children[(id - 1) % 3] = null;
-		console.log(thisOne.children.length);
-		LAST_ADDED = parentId;
-		console.log('changed LAST_ADDED to ' + LAST_ADDED);
+		LAST_MOD = parentId;
 		_repaintTree();
 		return false;
 	});
-	$node.click(function (e) {
+	$node.find('.edit-btn').click(function (e) {
 		e.preventDefault();
+		var me = _nodeById(id);
+		LAST_MOD=id;
+		$('#editor-title').val(me.title);
+		$('#editor-text').val(me.message);
+		switch(me.children.length){
+			case 1:
+				$('#editor-child-center').text(me.children[0].title);
+				break;
+			case 2:
+				$('#editor-child-left').text(me.children[0].title);
+				$('#editor-child-right').text(me.children[1].title);
+				break;
+			case 3:
+				$('#editor-child-left').text(me.children[0].title);
+				$('#editor-child-center').text(me.children[1].title);
+				$('#editor-child-right').text(me.children[2].title);
+				break;
+		}
+		
 		$('#editor').modal();
-        
-		console.log("editor popover");
         
         
 	});
 	$canvas.append($node);
-}
-$node.find('#btn-save').click(function (e) {
-    //added
-            if(thisOne.children.length == 1)
-                $("#center").editor($node.find('#btn-save'));
-            else if(thisOne.children.length ==2){
-                $("#left").text();
-                $("#center").text("");
-                $("#right").text();
-            }else if(thisOne.children.length == 3){
-                $("#left").text();
-                $("#center").text();
-                $("#right").text();
-            }
-    
 }
 // Tree node.
 function Tree(id, children) {
@@ -308,10 +308,10 @@ var _repaintTree = function () {
 	TREE_ROOT.draw();
 	//scroll so that TREE_ROOT's in the centre
 	//with lib
-	$('#' + LAST_ADDED).ScrollTo({
+	$('#' + LAST_MOD).ScrollTo({
 		duration: 0,
 		callback: function () {
-			$('#' + LAST_ADDED).effect('shake', {}, 500);
+			$('#' + LAST_MOD).effect('shake', {}, 500);
 		}
 	});
 }
@@ -334,6 +334,9 @@ var drawTreeRoot = function () {
 /////////////
 
 exports.$canvas = $canvas;
-
+exports.getLastMod = function(){
+	return LAST_MOD;
+};;
+exports._nodeById = _nodeById;
 exports.drawRandTree = drawRandTree;
 exports.drawTreeRoot = drawTreeRoot;
