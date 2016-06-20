@@ -24,45 +24,45 @@
 
 </head>
 
-<body id="body-elem" oncontextmenu="return false">
-	
+<body id="body-elem">
+
 	<!-- popup (bs modal)-->
 	<div id="editor" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Edit</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-  <label for="ch-name">Subtitle:</label>
-  <input type="text" class="form-control" id="editor-title">
-</div>
-                <div class="form-group">
-  <label for="comment">continuation:</label>
-  <textarea class="form-control" rows="10" id="editor-text"></textarea>
-</div>
-                
-             <div>  
-<div id="container">
-  <p id="editor-child-left"></p>
-  <p id="editor-child-center"></p>
-  <p id="editor-child-right"></p>
-</div>  
-                 </div> 
-            </div>
-            <div class="modal-footer">
-                
-                <button type="button" id="editor-save" class="btn btn-primary">Save changes</button>
-            </div>
-            
-        </div>
-        
-    </div>
-    
-    
-</div>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Edit</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="ch-name">Subtitle:</label>
+						<input type="text" class="form-control" id="editor-title">
+					</div>
+					<div class="form-group">
+						<label for="comment">continuation:</label>
+						<textarea class="form-control" rows="10" id="editor-text"></textarea>
+					</div>
+
+					<div>
+						<div id="container">
+							<p id="editor-child-left"></p>
+							<p id="editor-child-center"></p>
+							<p id="editor-child-right"></p>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+
+					<button type="button" id="editor-save" class="btn btn-primary">Save changes</button>
+				</div>
+
+			</div>
+
+		</div>
+
+
+	</div>
 	<!-- popup (bs modal) -->
 
 
@@ -152,61 +152,45 @@
 		<p> just simple text</p>
 		<h6> header 6</h6>-->
 	<div class="main-cont">
-	<div class="container-canvas col-sm-9">
-		<div id="canvas">
+		<div class="container-canvas col-sm-9">
+			<div id="canvas">
+			</div>
 		</div>
+
+		<div class="right-pan col-sm-3">
+
+			<div class="right-head">
+				<h3>Create new story</h3></div>
+			<form role="form" class="pan">
+				<div class="form-group">
+					<label for="authors-name">Author's name:</label>
+					<input type="name" class="form-control" id="authors-name">
+				</div>
+				<div class="form-group">
+					<label for="description">Description:</label>
+					<textarea class="form-control" rows="8" id="description"></textarea>
+				</div>
+				
+				<div class="form-group">
+					<label for="sel1">Genre:</label>
+					<select class="form-control btn-warning" id="sel1">
+						<option>Drama</option>
+						<option>Romantic</option>
+						<option>Fairy Tale</option>
+						<option>Detective</option>
+						<option>Fantasy</option>
+						<option>Horror</option>
+						<option>Fanfiction</option>
+					</select>
+				</div>
+
+				<button type="submit" class="btn btn-default save-btn">Save</button>
+			</form>
+		</div>
+
 	</div>
 
-<div class="right-pan col-sm-3">
-
-            <div class="right-head"><h3>Create new story</h3></div>
-		<form role="form" class="pan">
-			<div class="form-group">
-				<label for="authors-name">Author's name:</label>
-				<input type="name" class="form-control" id="authors-name">
-			</div>
-			<div class="form-group">
-				<label for="description">Description:</label>
-				<textarea class="form-control" rows="8" id="description"></textarea>
-			</div>
-
-			<div class="dropdown">
-				<button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown">Genre
-					<span class="caret"></span></button>
-				<ul class="dropdown-menu">
-
-					<li>
-						<a href="#">Drama</a>
-					</li>
-					<li>
-						<a href="#">Romantic</a>
-					</li>
-					<li>
-						<a href="#">Fairy Tale</a>
-					</li>
-					<li>
-						<a href="#">Detective</a>
-					</li>
-					<li>
-						<a href="#">Fantasy</a>
-					</li>
-					<li>
-						<a href="#">Horror</a>
-					</li>
-					<li>
-						<a href="#">Fanfiction</a>
-					</li>
-				</ul>
-			</div>
-
-
-			<button type="submit" class="btn btn-default save-btn">Save</button>
-		</form>
-    </div>
-
-</div>
-
-		<!-- jQuery JavaScript -->
+	<!-- jQuery JavaScript -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jsPlumb/1.4.1/jquery.jsPlumb-1.4.1-all-min.js"></script>
@@ -214,9 +198,9 @@
 	<script src="./../../../libs/jquery-scrollto.js"></script>
 	<!--Bootsrap JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	<script src = "//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" ></script>
-	
-	
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+
 	<script src="assets/js/response.min.js"></script>
 	<script src="assets/js/compressed.js"></script>
 	<script src="assets/js/custom.js"></script>
@@ -225,7 +209,10 @@
 	<script src="assets/js/jquery.serializecfjson-0.2.min.js"></script>
 
 	<!--Own JavaScript -->
-	<script type="text/javascript" src="assets/js/main.js">	</script>
+	<script type="text/javascript" src="assets/js/main.js">
+
+
+	</script>
 
 </body>
 

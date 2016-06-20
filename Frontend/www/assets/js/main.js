@@ -354,13 +354,13 @@ $(document).ready(function () {
 		$('#editor-child-center').text('');
 		$('#editor-child-right').text('');
 	});
-	$('#editor-save').click(function(e){
+	$('#editor-save').click(function (e) {
 		var nodeAbstract = storyTree._nodeById(storyTree.getLastMod());
 		console.log(nodeAbstract);
 		nodeAbstract.title = $('#editor-title').val();
 		nodeAbstract.message = $('#editor-text').val();
 		//for div in tree
-		$('#'+storyTree.getLastMod()).find('.story-node-text').html($('#editor-text').val());
+		//$('#'+storyTree.getLastMod()).find('.story-node-text').html($('#editor-text').val());
 		$('#editor').modal('hide');
 	});
 	///for testing only!
@@ -376,7 +376,7 @@ $(document).ready(function () {
 
 var ejs = require('ejs');
 
-exports.StoryTree_Node = ejs.compile("<div id=\"<%= id %>\" class=\"story-node\">\r\n\t<p class=\"story-node-text\">\r\n\t\t<%= message %>\r\n\r\n\t</p>\r\n\t<div class=\"btn btn-xs btn-success btn-circle add-child\">+</div>\r\n\t<div class=\"btn btn-xs btn-success btn-circle edit-btn\">e</div>\r\n\t<div class=\"btn btn-xs btn-danger btn-circle self-remove\">-</div>\r\n</div>\r\n")
+exports.StoryTree_Node = ejs.compile("<div id=\"<%= id %>\" class=\"story-node\">\r\n\t<div class=\"container-fluid\">\r\n\t<p class=\"story-node-text\">\r\n\t\t<%= message %>\r\n\r\n\t</p>\r\n\t\t</div>\r\n\t<div class=\"btn btn-xs btn-success btn-circle add-child\">+</div>\r\n\t<div class=\"btn btn-xs btn-success btn-circle edit-btn\">e</div>\r\n\t<div class=\"btn btn-xs btn-danger btn-circle self-remove\">-</div>\r\n</div>\r\n")
 },{"ejs":4}],4:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates

@@ -9,13 +9,13 @@ $(document).ready(function () {
 		$('#editor-child-center').text('');
 		$('#editor-child-right').text('');
 	});
-	$('#editor-save').click(function(e){
+	$('#editor-save').click(function (e) {
 		var nodeAbstract = storyTree._nodeById(storyTree.getLastMod());
 		console.log(nodeAbstract);
 		nodeAbstract.title = $('#editor-title').val();
 		nodeAbstract.message = $('#editor-text').val();
 		//for div in tree
-		$('#'+storyTree.getLastMod()).find('.story-node-text').html($('#editor-text').val());
+		//$('#'+storyTree.getLastMod()).find('.story-node-text').html($('#editor-text').val());
 		$('#editor').modal('hide');
 	});
 	///for testing only!
