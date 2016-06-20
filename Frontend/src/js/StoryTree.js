@@ -336,7 +336,10 @@ var drawTreeRoot = function () {
 exports.$canvas = $canvas;
 exports.getLastMod = function(){
 	return LAST_MOD;
-};;
+};
+exports.getRoot = function(){
+	return TREE_ROOT;
+}
 exports._nodeById = _nodeById;
 exports.drawRandTree = drawRandTree;
 exports.drawTreeRoot = drawTreeRoot;
