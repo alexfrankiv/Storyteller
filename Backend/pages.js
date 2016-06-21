@@ -10,3 +10,8 @@ exports.readerPage = function(req, res){
 	});
 };
 
+exports.homePage = function(req, res){
+	res.render('homePage', {
+		pageTitle: 'Home page'
+	});
+};

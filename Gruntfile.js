@@ -28,6 +28,10 @@ module.exports = function(grunt) {
 			reader: {
 				src:		'Frontend/src/js/readerMain.js',
 				dest:		'Frontend/www/assets/js/readerMain.js'
+			},
+			home: {
+				src:		'Frontend/src/js/homeMain.js',
+				dest:		'Frontend/www/assets/js/homeMain.js'
 			}
         }
     };
