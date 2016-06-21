@@ -443,7 +443,7 @@ var api = require("./api.js");
 
 
 $(document).ready(function () {
-/*var Saved_Stories=[];
+var Saved_Stories=[];
     
     api.show(function(err,data){
         
@@ -488,30 +488,31 @@ console.log("Showed good");}
       api.showByDescription("Nazar",function (error,data){
          if(!error){
              data.forEach(function(story,index,data){
-                 console.log("4 desc:"+story.author);
+                 console.log("4 desciption:"+story.description);
              });
             
          } else{
              console.log("5 Nothing found");
          }  
         });
-     var id= '576919a4a124951c0cf77ac6';
+    
+     var id= '5769c580a0cde04801d1b717';
          api.getId(id,function(err,data){
                     if(!err){
-                        console.log("Id"+data._id);
+                        alert("Id"+data._id);
                         //alert(data._id);
                     }else{
-                      console.log("ID NOT FOUND");
+                      alert("ID NOT FOUND");
                     }
                 });
     api.delete(id, function(err,data){
         if(!err){
-            console.log("Deleted 1 item ");
+            alert("Deleted 1 item ");
         }else{
-            console.log("Not deleted(BAD)");
+            alert("Not deleted(BAD)");
         }
     })
-    */
+    
     
     
                       
@@ -1829,6 +1830,31 @@ var substr = 'ab'.substr(-1) === 'b'
 // shim for using process in browser
 
 var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+(function () {
+  try {
+    cachedSetTimeout = setTimeout;
+  } catch (e) {
+    cachedSetTimeout = function () {
+      throw new Error('setTimeout is not defined');
+    }
+  }
+  try {
+    cachedClearTimeout = clearTimeout;
+  } catch (e) {
+    cachedClearTimeout = function () {
+      throw new Error('clearTimeout is not defined');
+    }
+  }
+} ())
 var queue = [];
 var draining = false;
 var currentQueue;
@@ -1853,7 +1879,7 @@ function drainQueue() {
     if (draining) {
         return;
     }
-    var timeout = setTimeout(cleanUpNextTick);
+    var timeout = cachedSetTimeout(cleanUpNextTick);
     draining = true;
 
     var len = queue.length;
@@ -1870,7 +1896,7 @@ function drainQueue() {
     }
     currentQueue = null;
     draining = false;
-    clearTimeout(timeout);
+    cachedClearTimeout(timeout);
 }
 
 process.nextTick = function (fun) {
@@ -1882,7 +1908,7 @@ process.nextTick = function (fun) {
     }
     queue.push(new Item(fun, args));
     if (queue.length === 1 && !draining) {
-        setTimeout(drainQueue, 0);
+        cachedSetTimeout(drainQueue, 0);
     }
 };
 

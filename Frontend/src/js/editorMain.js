@@ -49,31 +49,32 @@ console.log("Showed good");}
       api.showByDescription("Nazar",function (error,data){
          if(!error){
              data.forEach(function(story,index,data){
-                 console.log("4 desc:"+story.author);
+                 console.log("4 desciption:"+story.description);
              });
             
          } else{
              console.log("5 Nothing found");
          }  
         });
-     var id= '576919a4a124951c0cf77ac6';
+    
+     var id= '5769c580a0cde04801d1b717';
          api.getId(id,function(err,data){
                     if(!err){
-                        console.log("Id"+data._id);
+                        alert("Id"+data._id);
                         //alert(data._id);
                     }else{
-                      console.log("ID NOT FOUND");
+                      alert("ID NOT FOUND");
                     }
                 });
     api.delete(id, function(err,data){
         if(!err){
-            console.log("Deleted 1 item ");
+            alert("Deleted 1 item ");
         }else{
-            console.log("Not deleted(BAD)");
+            alert("Not deleted(BAD)");
         }
     })
-    */
     
+    */
     
                       
  
