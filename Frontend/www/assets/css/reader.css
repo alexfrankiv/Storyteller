@@ -1,0 +1,16 @@
+.story-info-cont{
+    margin-left: 55px;
+    position: relative;
+}
+.story-info-header{
+    height: 50px;
+    background-color: orange;
+}
+
+.story-author{
+    margin-right: 0px;
+}
+
+.story-pict{
+    padding: 50px;
+}
