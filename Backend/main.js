@@ -12,10 +12,39 @@ function configureEndpoints(app) {
     //Отримання списку піц
     //app.get('/api/get-pizza-list/', api.getPizzaList);
     //app.post('/api/create-order/', api.createOrder);
+    
 app.get('/api/show-stories/',api.show);
-    app.post('/api/delete-one/',api.delete);
+    
+    app.get('/api/showsorted/',api.showSorted);
+    
+    app.get('/api/showsorted-author-asc/',api.showSortedAuthorAsc);
+    
+    app.get('/api/showsorted-author-des',api.showSortedAuthorDes);
+    
+    app.get('/api/showsorted-title-des/',api.showSortedTitleDes);
+    
+    
+    app.get('/api/show-by-description/:description',api.showByDescription);
+    
+    app.get('/api/show-by-author/:author',api.showByAuthor);
+    
+    app.get('/api/show-by-title/:title', api.showByTitle);
+    
+    app.get('/api/story/:id',api.getId);
+    
+    app.get('/api/delete-all/',api.deleteAll);
+    
+    app.get('/api/delete/:id',api.delete);
+    
+     app.get('/api/update/:id',api.update);
+    
+    
+ 
+    
     app.post('/api/save-story/',api.create);
-    app.post('/api/find-one-and-update/',api.findOneAndUpdate);
+    
+   
+   
     
     //Сторінки
     //Головна сторінка

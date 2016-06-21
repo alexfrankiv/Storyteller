@@ -352,6 +352,7 @@ function backendGet(url, callback){
          url: API_URL + url,
         type: 'GET',
         success: function(data){
+         
             callback(null, data);
         },
         fail: function() {
@@ -367,24 +368,67 @@ function backendPost(url,data,callback){
         contentType:'application/json',
 data:JSON.stringify(data),
         success: function(data){
+         
 callback(null,data);},fail:function() {
     callback(new Error("Failed to upload to server"));
 }
-        
+    
     })
 }
-exports.show = function(calback){
-    backendGet('/api/show-stories/',callback);
+//get unique ObjectID for the document
+exports.getId= function(data,callback){
+    backendGet('/api/story/'+data, callback);
 }
+//show all stories from the db 
+exports.show = function(callback){
+    backendGet('/api/show-stories/',callback);
+};
+//show them sorted by title ascending
+exports.showSorted = function(callback){
+    backendGet('/api/showsorted/',callback);
+};
+//show all sorted author ascending
+exports.showSortedAuthorAsc = function(callback){
+    backendGet('/api/showsorted-author-asc/',callback);
+};
+exports.showSortedTitleDes = function(callback){
+    backendGet('/api/showsorted-title-des/',callback);
+};
+exports.showSortedAuthorDes = function(callback){
+    backendGet('/api/showsorted-author-des',callback);
+};
+//show all docs of one author
+exports.showByAuthor = function(data,callback){
+   
+    backendGet('/api/show-by-author/'+data,callback);
+};
+//show all docs with the same description 
+
+exports.showByDescription = function (data,callback){
+backendGet('/api/show-by-description/'+data,callback);};
+
+//show all dosc with the same title
+
+exports.showByTitle = function (data,callback){
+    backendGet('/api/show-by-title/'+data,callback);};
+
+//delete all documents
+exports.deleteAll = function(callback){
+    backendGet('/api/delete-all/',callback);
+};
+//create one doc from data object(StoryObject)
 exports.create = function (data,callback){
     backendPost("/api/save-story/",data,callback);
 };
+//delete one doc using _id  
 exports.delete = function (data,callback){
-    backendPost('/api/delete-one/',data,callback);
+    backendGet('/api/delete/'+data,callback);
+};//update one doc using _id
+//ONE SHOULD IMPORT ONLY JSON OBJECTS WITH _ID HERE
+exports.update = function (data,callback){
+    backendPost('/api/update/',data,callback);
 };
-exports.findOneAndUpdate = function (data,callback){
-    backendPost('/api/find-one-and-update/');
-};
+
 
 },{}],3:[function(require,module,exports){
 var storyTree = require('./StoryTree.js');
@@ -393,8 +437,79 @@ var api = require("./api.js");
 
 
 $(document).ready(function () {
-   
-
+/*var Saved_Stories=[];
+    
+    api.show(function(err,data){
+        
+if(!err){
+    Saved_Stories = data;
+    Saved_Stories.forEach(function(story,index,Saved_Stories){
+        console.log(" 1 title:"+story._id);
+        console.log("1 author:"+story.author);
+    });
+console.log("Showed good");}
+        });
+    
+    api.showByAuthor("Nazar",function (error,data){
+         if(!error){
+             data.forEach(function(story,index,data){
+                 console.log("2 author:"+story.author);
+             });
+            
+         }   
+        });
+     api.showByTitle("Nazar",function (error,data){
+         if(!error){
+             data.forEach(function(story,index,data){
+                 console.log("3 title:"+story.title);
+             });
+            
+         } else{
+             console.log("3 Nothing found");
+         }  
+        });
+      api.showSorted(function(err,stories){
+      if(err){
+         console.log("Did not find sorted docs");
+      } else{
+          Saved_Stories= stories;
+          Saved_Stories.forEach(function(story,index,Saved_Stories){
+             console.log("story:"+story.title);
+          });
+      } 
+        
+    });
+      api.showByDescription("Nazar",function (error,data){
+         if(!error){
+             data.forEach(function(story,index,data){
+                 console.log("4 desc:"+story.author);
+             });
+            
+         } else{
+             console.log("5 Nothing found");
+         }  
+        });
+     var id= '576919a4a124951c0cf77ac6';
+         api.getId(id,function(err,data){
+                    if(!err){
+                        console.log("Id"+data._id);
+                        //alert(data._id);
+                    }else{
+                      console.log("ID NOT FOUND");
+                    }
+                });
+    api.delete(id, function(err,data){
+        if(!err){
+            console.log("Deleted 1 item ");
+        }else{
+            console.log("Not deleted(BAD)");
+        }
+    })
+    */
+    
+    
+                      
+ 
 	///for testing only!
 	$('#editor').on('hide.bs.modal', function () {
 		$('#editor-title').val('');
@@ -423,16 +538,52 @@ $(document).ready(function () {
 			genre: $('#genre').val()
 		};
 		console.log(storyObject);
-        alert("Before saving"+storyObject);
+       // alert("Before saving"+storyObject);
+      /*  var id= '57691ab1a124951c0cf77acc';
+         api.getId(id,function(err,data){
+                    if(!err){
+                        alert("All is good");
+                        alert(data._id);
+                    }else{
+                        alert("ID NOT FOUND");
+                    }
+                });
+           var Saved_Stories = [];*/
       
+       /* api.showByAuthor(storyObject,function (error,data){
+         if(!err){
+             console.log(data);
+         }   
+        });
+        api.delete(storyObject,function(error,data){
+            if(!err){
+console.log("Successfully deleted");}
+});*/
+        
 		//save story method should be here!
         api.create(storyObject,function(err,data){
             if(!err){
-               console.log("Check for saving");
+               console.log("Saved");
+               
             }else{
-               console.log("not saved");
+            alert("failed");
             }
         });
+       
+        /*
+        api.show(function(err,data){
+if(!err){
+console.log("Showed good");}
+        });
+        api.deleteAll(function(error,data){
+            if(!err){
+                console.log("Successfully deleted");
+            }
+        });
+        */
+     
+    
+  
 		return true;
 	});
 	///for testing only!
