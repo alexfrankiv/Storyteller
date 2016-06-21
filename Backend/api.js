@@ -3,16 +3,11 @@ mongoose.connect('mongodb://localhost/test');
 
 var Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
-var NodeSchema = new Schema({
-	title: String,
-	message: String,
-	id: Number,
-	children: [Number]
 
-});
-var TreeSchema = new Schema({
+var TreeSchema = new Schema();
+TreeSchema.add({
 	id: Number,
-	children: [NodeSchema],
+	children: [TreeSchema],
 	message: String,
 	title: String,
 
@@ -33,10 +28,8 @@ StorySchema.virtual('id').get(function () {
 	return this._id;
 });
 
-var NodeModel = mongoose.model('NodeModel', NodeSchema);
 var TreeModel = mongoose.model('TreeModel', TreeSchema);
 var StoryModel = mongoose.model('StoryModel', StorySchema);
-exports.NodeModel = NodeModel;
 exports.TreeModel = TreeModel;
 exports.StoryModel = StoryModel;
 
@@ -56,7 +49,7 @@ exports.create = function (req, res) {
 			console.log("Saved story");
 		} else {
 			res.send(data);
-			console.log("All is very bad");
+			console.log("All is very bad "+err.data);
 		}
 	});
 };
