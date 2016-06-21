@@ -48,7 +48,8 @@ app.get('/api/show-stories/',api.show);
     
     //Сторінки
     //Головна сторінка
-    app.get('/', pages.mainPage);
+    app.get('/new-story', pages.editorPage);
+	app.get('/view-story', pages.readerPage);
 
     //Сторінка замовлення
     //app.get('/order.html', pages.orderPage);
