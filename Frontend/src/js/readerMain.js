@@ -6,6 +6,7 @@ var api = require('./api');
 var STORY = null;
 var ROUTE = [];
 var CURRENT = null;
+var MAX_CHILDREN = 3;
 
 var init = function () {
 	var storyFromStorage = storage.get('currentStory');
@@ -53,7 +54,7 @@ var init = function () {
 						{
 							id: 4,
 							children: [],
-							message: 'You\'re right! it\'s better to wait aa bit',
+							message: 'You\'re right! it\'s better to wait a bit',
 							title: 'Not to read it',
 							offset: 0,
 							x: 0,
@@ -100,16 +101,41 @@ var init = function () {
 	$('#story-author').html(STORY.author);
 };
 
+var _nodeById = function (id) {
+	//counting route
+	var route = [];
+	while (id > 0) {
+		route.push(id);
+		--id;
+		id = Math.floor(id / MAX_CHILDREN);
+	}
+	//getting node from tree by route
+	var currentN = TREE_ROOT;
+	for (var i = route.length - 1; i >= 0; --i) {
+		currentN = $.grep(currentN.children, function(e){ return e.id == route[i]; })[0];
+	}
+	return currentN;
+}
+
 var load = function(node){
 	console.warn(node);
+	$('#variants').html('');
 	$('#node-title').html(node.title);
 	$('#node-text').html(node.message);
 	node.children.forEach(function(item){
-		var $var = $('<div class="btn btn-primary btn-xs variant" id="'+item.id+'">'+item.title+'</div><br/>');
+		var $var = $('<div class="btn btn-primary btn-xs navigation-variant" id="'+item.id+'">'+item.title+'</div><br/>');
 		$('#variants').append($var);
 	});
+$('.navigation-variant').click(function(){
+	var id = $(this).attr('id');
+	ROUTE.push(CURRENT.id);
+	CURRENT = $.grep(CURRENT.children, function(e){ return e.id == id; })[0];
+	load(CURRENT);
+});
 	//animations should be here!
 }
+
+
 
 $(document).ready(function () {
 

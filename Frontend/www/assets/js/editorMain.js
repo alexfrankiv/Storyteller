@@ -39,9 +39,8 @@ var _nodeById = function (id) {
 	//getting node from tree by route
 	var currentN = TREE_ROOT;
 	for (var i = route.length - 1; i >= 0; --i) {
-		currentN = currentN.children[currentN.children.map(function (x) {
-			return x.id;
-		}).indexOf(route[i])];
+			currentN = $.grep(currentN.children, function(e){ return e.id == route[i]; })[0];
+
 		//currentN.children[route[i]];
 	}
 	return currentN;
