@@ -442,7 +442,7 @@ var api = require("./api.js");
 
 
 $(document).ready(function () {
-var Saved_Stories=[];
+//var Saved_Stories=[];
 /*    
     api.show(function(err,data){
         
@@ -495,7 +495,7 @@ console.log("Showed good");}
          }  
         });
     */
-     var id= '576a3e856f6313200c74b124';
+     /*var id= '576a3e856f6313200c74b124';
          api.getId(id,function(err,data){
                     if(!err){
                        data.author= "MIami";
@@ -511,7 +511,7 @@ console.log("Showed good");}
                     }else{
                       console.log("ID NOT FOUND");
                     }
-                });
+                });*/
     /*
     api.delete(id, function(err,data){
         if(!err){
