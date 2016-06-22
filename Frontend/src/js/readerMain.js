@@ -172,9 +172,9 @@ $('#btn-atm').click(function () {
 				$body.removeClass('original');
 				$body.addClass('horror-colors');
 				break;
-			case "Fanfiction":
+			case "Adventure":
 				$body.removeClass('original');
-				$body.addClass('fanfiction-colors');
+				$body.addClass('adventure-colors');
 				break;
 		}
 	} else {
