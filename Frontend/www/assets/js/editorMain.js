@@ -622,7 +622,9 @@ console.log("Showed good");}
 
 var ejs = require('ejs');
 
-exports.StoryTree_Node = ejs.compile("<div id=\"<%= id %>\" class=\"story-node\">\r\n\t<div class=\"container-fluid\">\r\n\t<p class=\"story-node-text\">\r\n\t\t<%= message %>\r\n\r\n\t</p>\r\n\t\t</div>\r\n\t<div class=\"btn btn-xs btn-success btn-circle add-child\">+</div>\r\n\t<div class=\"btn btn-xs btn-success btn-circle edit-btn\">e</div>\r\n\t<div class=\"btn btn-xs btn-danger btn-circle self-remove\">-</div>\r\n</div>\r\n")
+exports.StoryTree_Node = ejs.compile("<div id=\"<%= id %>\" class=\"story-node\">\r\n\t<div class=\"container-fluid\">\r\n\t<p class=\"story-node-text\">\r\n\t\t<%= message %>\r\n\r\n\t</p>\r\n\t\t</div>\r\n\t<div class=\"btn btn-xs btn-success btn-circle add-child\">+</div>\r\n\t<div class=\"btn btn-xs btn-success btn-circle edit-btn\">e</div>\r\n\t<div class=\"btn btn-xs btn-danger btn-circle self-remove\">-</div>\r\n</div>\r\n");
+
+
 },{"ejs":5}],5:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
@@ -1846,31 +1848,6 @@ var substr = 'ab'.substr(-1) === 'b'
 // shim for using process in browser
 
 var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-(function () {
-  try {
-    cachedSetTimeout = setTimeout;
-  } catch (e) {
-    cachedSetTimeout = function () {
-      throw new Error('setTimeout is not defined');
-    }
-  }
-  try {
-    cachedClearTimeout = clearTimeout;
-  } catch (e) {
-    cachedClearTimeout = function () {
-      throw new Error('clearTimeout is not defined');
-    }
-  }
-} ())
 var queue = [];
 var draining = false;
 var currentQueue;
@@ -1895,7 +1872,7 @@ function drainQueue() {
     if (draining) {
         return;
     }
-    var timeout = cachedSetTimeout(cleanUpNextTick);
+    var timeout = setTimeout(cleanUpNextTick);
     draining = true;
 
     var len = queue.length;
@@ -1912,7 +1889,7 @@ function drainQueue() {
     }
     currentQueue = null;
     draining = false;
-    cachedClearTimeout(timeout);
+    clearTimeout(timeout);
 }
 
 process.nextTick = function (fun) {
@@ -1924,7 +1901,7 @@ process.nextTick = function (fun) {
     }
     queue.push(new Item(fun, args));
     if (queue.length === 1 && !draining) {
-        cachedSetTimeout(drainQueue, 0);
+        setTimeout(drainQueue, 0);
     }
 };
 

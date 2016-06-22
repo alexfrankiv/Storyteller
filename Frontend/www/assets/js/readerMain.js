@@ -98,43 +98,122 @@ var storage = require('./storage');
 var api = require('./api');
 
 //global
-var TREE_ROOT = null;
+var STORY = null;
 var ROUTE = [];
+var CURRENT = null;
 
-var init = function(){
+var init = function () {
 	var storyFromStorage = storage.get('currentStory');
-	if(storyFromStorage){
-		TREE_ROOT = storyFromStorage;
+	if (storyFromStorage) {
+		STORY = storyFromStorage;
 		console.log('TREE_ROOT = storyFromStorage;');
-	}else{
-		console.log('else!');
+	} else {
 		var idFromStorage = storage.get('currentReqId');
-		if(idFromStorage)
-			api.getById(idFromStorage, function(err, data){
-				if(data){
+		if (idFromStorage)
+			api.getById(idFromStorage, function (err, data) {
+				if (data) {
 					console.log(data);
-					TREE_ROOT = data;
+					STORY = data;
 					console.log("TREE_ROOT = data")
-				}
-				else{
+				} else {
 					//MUST BE ENBETTERED!
-				console.log('invalid story id req');
+					console.log('invalid story id req');
 				}
 			});
-		else{
+		else {
 			//MUST BE ENBETTERED!
-				console.log('no data in storage');
-				alert('invalid page load!');
-		}			
+			console.log('no data in storage');
+			//alert('invalid page load!');
+		}
 	}
+
+	//this thing is for testing only!!!
+	STORY = {
+		title: 'Story about a book',
+		root: {
+			id: 0,
+			children: [
+				{
+					id: 1,
+					children: [
+						{
+							id: 5,
+							children: [],
+							message: 'Cool! that\'s great!',
+							title: 'Read it',
+							offset: 0,
+							x: 0,
+							y: 0
+	},
+						{
+							id: 4,
+							children: [],
+							message: 'You\'re right! it\'s better to wait aa bit',
+							title: 'Not to read it',
+							offset: 0,
+							x: 0,
+							y: 0
+		},
+						{
+							id: 6,
+							children: [],
+							message: 'Shame on you',
+							title: 'Throw it away!',
+							offset: 0,
+							x: 0,
+							y: 0
+		}
+	],
+					message: 'You\'ve taken the book! what\'s next?',
+					title: 'Take the book',
+					offset: 0,
+					x: 0,
+					y: 0
+	},
+				{
+					id: 3,
+					children: [],
+					message: 'You lost your chance for a good story',
+					title: 'Not to take the book',
+					offset: 0,
+					x: 0,
+					y: 0
+	}],
+			message: 'You\'ve found a book in the street. What you\'ll decide to do?',
+			title: 'Story about a book',
+			offset: 0,
+			x: 0,
+			y: 0
+		},
+		author: 'Ivan Franko',
+		description: 'Some description here',
+		genre: "Drama",
+	}
+	//end of for-testing-only
+	CURRENT = STORY.root;
+	$('#story-name').html(STORY.title);
+	$('#story-author').html(STORY.author);
 };
 
-$(document).ready(function(){
-	
-	
+var load = function(node){
+	console.warn(node);
+	$('#node-title').html(node.title);
+	$('#node-text').html(node.message);
+	node.children.forEach(function(item){
+		var $var = $('<div class="btn btn-primary btn-xs variant" id="'+item.id+'">'+item.title+'</div><br/>');
+		$('#variants').append($var);
+	});
+	//animations should be here!
+}
+
+$(document).ready(function () {
+
+
 	//onload
 	init();
+	load(CURRENT);
 });
+
 },{"./api":1,"./storage":3}],3:[function(require,module,exports){
 var basil = require('basil.js');
 basil = new basil();
