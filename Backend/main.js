@@ -37,7 +37,7 @@ function configureEndpoints(app) {
 
 	app.get('/api/delete/:id', api.delete);
 
-	app.get('/api/update/:id', api.update);
+	app.post('/api/update/', api.update);
 
 	app.post('/api/save-story/', api.create);
 

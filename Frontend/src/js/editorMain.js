@@ -4,8 +4,8 @@ var api = require("./api.js");
 
 
 $(document).ready(function () {
-/*var Saved_Stories=[];
-    
+var Saved_Stories=[];
+/*    
     api.show(function(err,data){
         
 if(!err){
@@ -56,16 +56,25 @@ console.log("Showed good");}
              console.log("5 Nothing found");
          }  
         });
-    
-     var id= '5769c580a0cde04801d1b717';
+    */
+     var id= '576a3e856f6313200c74b124';
          api.getId(id,function(err,data){
                     if(!err){
-                        alert("Id"+data._id);
+                       data.author= "MIami";
+                       data.title = "Miami"; api.update(data,function(err,info){
+                            if(err){
+                                alert("Nothing found");
+                            }else{
+                                console.log("Updated succesfully");
+                            }
+                        })
+                      //  alert("Id"+data._id);
                         //alert(data._id);
                     }else{
-                      alert("ID NOT FOUND");
+                      console.log("ID NOT FOUND");
                     }
                 });
+    /*
     api.delete(id, function(err,data){
         if(!err){
             alert("Deleted 1 item ");
@@ -75,6 +84,7 @@ console.log("Showed good");}
     })
     
     */
+    
     
                       
  

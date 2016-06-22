@@ -36,6 +36,7 @@ exports.StoryModel = StoryModel;
 exports.create = function (req, res) {
 
 	new StoryModel({
+        
 
 		title: req.body.title,
 		root: req.body.root,
@@ -209,7 +210,7 @@ exports.update = function (req, res) {
 			console.log("have not found anything to update");
 		} else {
 
-			console.log("Successfully updated story ");
+			console.log("Successfully updated story "+story.author+story.title);
 
 		}
 	});
