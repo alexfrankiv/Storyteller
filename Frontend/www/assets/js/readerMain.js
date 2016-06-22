@@ -2,36 +2,32 @@
 var API_URL = "http://localhost:5050";
 
 function backendGet(url, callback) {
-	$.ajax({
-		url: API_URL + url,
-		type: 'GET',
-		success: function (error,data) {
-
-			callback(error, data);
-		},
-		fail: function () {
-			callback(new Error("Ajax Failed to make GET request"));
-		}
-	})
-
+    $.ajax({
+        url: API_URL + url,
+        type: 'GET',
+        success: function(data){
+            callback(null, data);
+        },
+        fail: function() {
+            callback(new Error("Ajax Failed"));
+        }
+    })
 }
 
 function backendPost(url, data, callback) {
-	$.ajax({
-		url: API_URL,
-		url,
-		type: 'POST',
-		contentType: 'application/json',
-		data: JSON.stringify(data),
-		success: function (error,data) {
-			callback(error, data);
-		},
-		fail: function () {
-			callback(new Error("Failed to upload to server"));
-		}
-
-	})
-};
+    $.ajax({
+        url: API_URL + url,
+        type: 'POST',
+        contentType : 'application/json',
+        data: JSON.stringify(data),
+        success: function(data){
+            callback(null, data);
+        },
+        fail: function() {
+            callback(new Error("Ajax Failed"));
+        }
+    })
+}
 //get unique ObjectID for the document
 exports.getById = function (data, callback) {
 		backendGet('/api/story/' + data, callback);
@@ -51,8 +47,8 @@ exports.showSortedAuthorAsc = function (callback) {
 exports.showSortedTitleDes = function (callback) {
 	backendGet('/api/showsorted-title-des/', callback);
 };
-exports.showByGenre = function (callback) {
-	backendGet('/api/show-by-genre/:genre', callback);
+exports.showByGenre = function (data,callback) {
+	backendGet('/api/show-by-genre/'+data, callback);
 };
 
 exports.showSortedAuthorDes = function (callback) {
@@ -92,6 +88,7 @@ exports.update = function (data, callback) {
 	backendPost('/api/update/', data, callback);
 };
 
+
 },{}],2:[function(require,module,exports){
 //dependencies
 var storage = require('./storage');
@@ -112,7 +109,7 @@ var init = function () {
 		var idFromStorage = storage.get('currentReqId');
 		if (idFromStorage)
 			api.getById(idFromStorage, function (err, data) {
-				if (data) {
+				if (Object.keys(data).length>0) {
 					console.log(data);
 					STORY = data;
 					storage.set('currentStory', STORY);

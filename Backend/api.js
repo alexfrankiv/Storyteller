@@ -48,19 +48,20 @@ exports.create = function (req, res) {
 		if (!err) {
 			console.log("Saved story");
 		} else {
-			
+			res.status(500).send(err);
 			console.log("All is very bad ");
-		}res.send(err,stories);
+		}res.status(200).send(stories);
 	});
 };
 exports.show = function (req, res) {
 	StoryModel.find({}, function (err, stories) {
 		if (err) {
+            res.status(500).send(err);
 			console.log("Not retrieved all stories");
 		} else {
 			
 		}
-        res.send(err,stories);
+       res.status(200).send(stories);
 	});
 };
 exports.showSorted = function (req, res) {
@@ -69,12 +70,13 @@ exports.showSorted = function (req, res) {
 		'title': 1
 	}).exec(function (err, stories) {
 		if (err) {
+            res.status(500).send(err);
 			console.log("Not retrieved all stories");
 		} else {
 			console.log("Retrieved all stories sorted by ascending title");
 			
 		}
-        res.send(err,stories);
+        res.status(200).send(stories);
 	});
 };
 exports.showSortedAuthorAsc = function (req, res) {
@@ -83,12 +85,13 @@ exports.showSortedAuthorAsc = function (req, res) {
 		'author': 1
 	}).exec(function (err, stories) {
 		if (err) {
+            res.status(500).send(err);
 			console.log("Not retrieved all stories");
 		} else {
 			console.log("Retrieved all stories sorted by ascending author");
 
 		}
-        res.send(err,stories);
+        res.status(200).send(stories);
 	});
 };
 exports.showSortedAuthorDes = function (req, res) {
@@ -97,12 +100,13 @@ exports.showSortedAuthorDes = function (req, res) {
 		'author': -1
 	}).exec(function (err, stories) {
 		if (err) {
+            res.status(500).send(err);
 			console.log("Not retrieved all stories");
 		} else {
 			console.log("Retrieved all stories sorted by descending author");
 			
 		}
-        res.send(err,stories);
+        res.status(200).send(stories);
 	});
 };
 exports.showSortedTitleDes = function (req, res) {
@@ -111,12 +115,13 @@ exports.showSortedTitleDes = function (req, res) {
 		'title': -1
 	}).exec(function (err, stories) {
 		if (err) {
+            res.status(500).send(err);
 			console.log("Not retrieved all stories");
 		} else {
 			console.log("Retrieved all stories sorted by descending title");
 			
 		}
-        res.send(err,stories);
+         res.status(200).send(stories);
 	});
 };
 
@@ -126,12 +131,13 @@ exports.showByAuthor = function (req, res) {
 		"author": req.params.author
 	}, function (err, stories) {
 		if (err) {
+            res.status(500).send(err);
 			console.log("Can't find stories by author");
 		} else {
 			console.log("Successfully found some stories with that author");
 			
 		}
-        res.send(err,stories);
+     res.status(200).send(stories);
 	});
 
 
@@ -141,12 +147,14 @@ exports.showByGenre = function (req, res) {
 		"genre": req.params.genre
 	}, function (err, stories) {
 		if (err) {
+            
 			console.log("Can't find stories by genre");
+            res.status(500).send(err);
 		} else {
 			console.log("Successfully found some stories with that genre");
-			
+
 		}
-        res.send(err,stories);
+     res.status(200).send(stories);
 	});
 
 
@@ -156,12 +164,13 @@ exports.showByTitle = function (req, res) {
 		"title": req.params.title
 	}, function (err, stories) {
 		if (err) {
+            res.status(500).send(err);
 			console.log("Can't find stories by title");
 		} else {
 			console.log("Successfully found some stories with that titile");
 			
 		}
-        res.send(err,stories);
+         res.status(200).send(stories);
 	});
 };
 exports.showByDescription = function (req, res) {
@@ -169,21 +178,23 @@ exports.showByDescription = function (req, res) {
 		"description": req.params.description
 	}, function (err, stories) {
 		if (err) {
+            res.status(500).send(err);
 			console.log("Can't find stories by description");
 		} else {
 			console.log("Successfully found some stories with that description");
 			
 		}
-        res.send(err,stories);
+        res.status(200).send(stories);
 	});
 };
 exports.deleteAll = function (req, res) {
 	StoryModel.remove({}, function (err) {
 		if (err) {
+            res.status(500).send(err);
 			console.log("Didn't delete anything");
 		} else {
 			console.log("Everything deleted");
-		}res.send(err,null);
+		}res.status(200).send(err);
 	});
 };
 
@@ -193,11 +204,12 @@ exports.getById = function (req, res) {
 	}, function (err, story) {
 		//this conditional should be for testing only!!!
 		if (!err) {
+            res.status(500).send(err);
 			console.log("retrieved 1 story");
 		} else {
 			console.log("not retrieved")
 		}
-		res.send(err, story);
+		res.status(200).send(story);
 	});
 }
 
@@ -206,11 +218,12 @@ exports.delete = function (req, res) {
 		"_id": req.params.id
 	}, function (err) {
 		if (err) {
+            res.status(500).send(err);
 			console.log("Didn't delete anything");
 		} else {
 			console.log("Deleted one story with specific id");
 		}
-        res.send(err,null);
+        res.status(200).send(err);
 	});
 
 }

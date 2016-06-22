@@ -17,7 +17,7 @@ var init = function () {
 		var idFromStorage = storage.get('currentReqId');
 		if (idFromStorage)
 			api.getById(idFromStorage, function (err, data) {
-				if (data) {
+				if (Object.keys(data).length>0) {
 					console.log(data);
 					STORY = data;
 					storage.set('currentStory', STORY);

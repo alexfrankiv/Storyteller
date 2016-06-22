@@ -144,6 +144,7 @@ console.log("Successfully deleted");}
         api.create(storyObject,function(err,data){
             if(!err){
                console.log("Saved");
+                
                 $("#story-save-btn").prop("disabled",true);
                
             }else{

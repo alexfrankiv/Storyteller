@@ -348,36 +348,32 @@ exports.drawTreeRoot = drawTreeRoot;
 var API_URL = "http://localhost:5050";
 
 function backendGet(url, callback) {
-	$.ajax({
-		url: API_URL + url,
-		type: 'GET',
-		success: function (error,data) {
-
-			callback(error, data);
-		},
-		fail: function () {
-			callback(new Error("Ajax Failed to make GET request"));
-		}
-	})
-
+    $.ajax({
+        url: API_URL + url,
+        type: 'GET',
+        success: function(data){
+            callback(null, data);
+        },
+        fail: function() {
+            callback(new Error("Ajax Failed"));
+        }
+    })
 }
 
 function backendPost(url, data, callback) {
-	$.ajax({
-		url: API_URL,
-		url,
-		type: 'POST',
-		contentType: 'application/json',
-		data: JSON.stringify(data),
-		success: function (error,data) {
-			callback(error, data);
-		},
-		fail: function () {
-			callback(new Error("Failed to upload to server"));
-		}
-
-	})
-};
+    $.ajax({
+        url: API_URL + url,
+        type: 'POST',
+        contentType : 'application/json',
+        data: JSON.stringify(data),
+        success: function(data){
+            callback(null, data);
+        },
+        fail: function() {
+            callback(new Error("Ajax Failed"));
+        }
+    })
+}
 //get unique ObjectID for the document
 exports.getById = function (data, callback) {
 		backendGet('/api/story/' + data, callback);
@@ -397,8 +393,8 @@ exports.showSortedAuthorAsc = function (callback) {
 exports.showSortedTitleDes = function (callback) {
 	backendGet('/api/showsorted-title-des/', callback);
 };
-exports.showByGenre = function (callback) {
-	backendGet('/api/show-by-genre/:genre', callback);
+exports.showByGenre = function (data,callback) {
+	backendGet('/api/show-by-genre/'+data, callback);
 };
 
 exports.showSortedAuthorDes = function (callback) {
@@ -437,6 +433,7 @@ exports.delete = function (data, callback) {
 exports.update = function (data, callback) {
 	backendPost('/api/update/', data, callback);
 };
+
 
 },{}],3:[function(require,module,exports){
 var storyTree = require('./StoryTree.js');
@@ -585,6 +582,7 @@ console.log("Successfully deleted");}
         api.create(storyObject,function(err,data){
             if(!err){
                console.log("Saved");
+                
                 $("#story-save-btn").prop("disabled",true);
                
             }else{
@@ -622,6 +620,8 @@ console.log("Showed good");}
 var ejs = require('ejs');
 
 exports.StoryTree_Node = ejs.compile("<div id=\"<%= id %>\" class=\"story-node\">\r\n\t<div class=\"container-fluid\">\r\n\t<p class=\"story-node-text\">\r\n\t\t<%= message %>\r\n\r\n\t</p>\r\n\t\t</div>\r\n\t<div class=\"btn btn-xs btn-success btn-circle add-child\">+</div>\r\n\t<div class=\"btn btn-xs btn-success btn-circle edit-btn\">e</div>\r\n\t<div class=\"btn btn-xs btn-danger btn-circle self-remove\">-</div>\r\n</div>\r\n");
+exports.StoryCard = ejs.compile("<div class = \"test-story\">\r\n<div class=\"story-card\">\r\n<div class=\"col-xs-1 col-sm-3 for-story-main\">\r\n<div class=\"story-i\">\r\n<h2>TITLE:<%=story.title%></h2>\r\n<h5>AUTHOR:<%= story.author %></h5>\r\n<h3> GENRE:<%= story.genre %></h3>\r\n\r\n<h3>ID: <%= story._id %></h3>\r\n    <h6>DESC:<%= story.description %></h6>\r\n    <a class=\"btn btn-xs btn-default btn-circle \" a href=\"/view-story\" id =\"link-to-read\">Link</a>\r\n    \r\n    \r\n</div>\r\n</div>\r\n</div>");
+
 
 
 },{"ejs":5}],5:[function(require,module,exports){
@@ -1847,6 +1847,31 @@ var substr = 'ab'.substr(-1) === 'b'
 // shim for using process in browser
 
 var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+(function () {
+  try {
+    cachedSetTimeout = setTimeout;
+  } catch (e) {
+    cachedSetTimeout = function () {
+      throw new Error('setTimeout is not defined');
+    }
+  }
+  try {
+    cachedClearTimeout = clearTimeout;
+  } catch (e) {
+    cachedClearTimeout = function () {
+      throw new Error('clearTimeout is not defined');
+    }
+  }
+} ())
 var queue = [];
 var draining = false;
 var currentQueue;
@@ -1871,7 +1896,7 @@ function drainQueue() {
     if (draining) {
         return;
     }
-    var timeout = setTimeout(cleanUpNextTick);
+    var timeout = cachedSetTimeout(cleanUpNextTick);
     draining = true;
 
     var len = queue.length;
@@ -1888,7 +1913,7 @@ function drainQueue() {
     }
     currentQueue = null;
     draining = false;
-    clearTimeout(timeout);
+    cachedClearTimeout(timeout);
 }
 
 process.nextTick = function (fun) {
@@ -1900,7 +1925,7 @@ process.nextTick = function (fun) {
     }
     queue.push(new Item(fun, args));
     if (queue.length === 1 && !draining) {
-        setTimeout(drainQueue, 0);
+        cachedSetTimeout(drainQueue, 0);
     }
 };
 
