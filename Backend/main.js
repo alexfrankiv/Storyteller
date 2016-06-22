@@ -31,7 +31,7 @@ function configureEndpoints(app) {
 
 	app.get('/api/show-by-title/:title', api.showByTitle);
 
-	app.get('/api/story/:id', api.getId);
+	app.get('/api/story/:id', api.getById);
 
 	app.get('/api/delete-all/', api.deleteAll);
 

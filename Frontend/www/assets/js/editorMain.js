@@ -371,7 +371,6 @@ function backendPost(url, data, callback) {
 		contentType: 'application/json',
 		data: JSON.stringify(data),
 		success: function (data) {
-
 			callback(null, data);
 		},
 		fail: function () {
@@ -379,9 +378,9 @@ function backendPost(url, data, callback) {
 		}
 
 	})
-}
+};
 //get unique ObjectID for the document
-exports.getId = function (data, callback) {
+exports.getById = function (data, callback) {
 		backendGet('/api/story/' + data, callback);
 	}
 	//show all stories from the db 
@@ -536,12 +535,14 @@ console.log("Showed good");}
 		$('#editor-child-right').text('');
 	});
 	$('#editor-save').click(function (e) {
+		if($('#editor-title').val()&&$('#editor-text').val()){
 		var nodeAbstract = storyTree._nodeById(storyTree.getLastMod());
 		nodeAbstract.title = $('#editor-title').val();
 		nodeAbstract.message = $('#editor-text').val();
 		//for div in tree
 		//$('#'+storyTree.getLastMod()).find('.story-node-text').html($('#editor-text').val());
 		$('#editor').modal('hide');
+		}
 	});
 	$('#story-save-btn').click(function(e){
 		//e.preventDefault();

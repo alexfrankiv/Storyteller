@@ -23,7 +23,6 @@ function backendPost(url, data, callback) {
 		contentType: 'application/json',
 		data: JSON.stringify(data),
 		success: function (data) {
-
 			callback(null, data);
 		},
 		fail: function () {
@@ -31,9 +30,9 @@ function backendPost(url, data, callback) {
 		}
 
 	})
-}
+};
 //get unique ObjectID for the document
-exports.getId = function (data, callback) {
+exports.getById = function (data, callback) {
 		backendGet('/api/story/' + data, callback);
 	}
 	//show all stories from the db 

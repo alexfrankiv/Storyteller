@@ -46,7 +46,7 @@ module.exports = function(grunt) {
             //На зміни в яких файлах реагувати
             files: ['Frontend/src/**/*.js', 'Frontend/**/*.ejs', 'Backend/**/*.ejs', 'Backend/**/*.js'],
             //Які завдання виконувати під час зміни в файлах
-            tasks: ['browserify:editor']
+            tasks: ['browserify:editor', 'browserify:reader', 'browserify:home']
         }
     };
 
