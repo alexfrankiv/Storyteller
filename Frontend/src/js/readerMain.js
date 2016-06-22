@@ -110,7 +110,7 @@ var _nodeById = function (id) {
 		id = Math.floor(id / MAX_CHILDREN);
 	}
 	//getting node from tree by route
-	var currentN = TREE_ROOT;
+	var currentN = STORY.root;
 	for (var i = route.length - 1; i >= 0; --i) {
 		currentN = $.grep(currentN.children, function(e){ return e.id == route[i]; })[0];
 	}
@@ -118,7 +118,6 @@ var _nodeById = function (id) {
 }
 
 var load = function(node){
-	console.warn(node);
 	$('#variants').html('');
 	$('#node-title').html(node.title);
 	$('#node-text').html(node.message);
@@ -135,7 +134,10 @@ $('.navigation-variant').click(function(){
 	//animations should be here!
 }
 
-
+$('#navigation-back').click(function(){
+	CURRENT = _nodeById(ROUTE.pop());
+	load(CURRENT);
+});
 
 $(document).ready(function () {
 
