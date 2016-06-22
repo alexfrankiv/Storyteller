@@ -30,6 +30,8 @@ function configureEndpoints(app) {
 	app.get('/api/show-by-author/:author', api.showByAuthor);
 
 	app.get('/api/show-by-title/:title', api.showByTitle);
+    app.get('/api/show-by-genre/:genre', api.showByGenre);
+
 
 	app.get('/api/story/:id', api.getById);
 

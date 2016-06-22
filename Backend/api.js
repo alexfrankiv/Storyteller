@@ -44,13 +44,13 @@ exports.create = function (req, res) {
 		genre: req.body.genre,
 
 
-	}).save(function (err, data) {
+	}).save(function (err, stories) {
 		if (!err) {
 			console.log("Saved story");
 		} else {
-			res.send(data);
-			console.log("All is very bad "+err.data);
-		}
+			
+			console.log("All is very bad ");
+		}res.send(err,stories);
 	});
 };
 exports.show = function (req, res) {
@@ -58,8 +58,9 @@ exports.show = function (req, res) {
 		if (err) {
 			console.log("Not retrieved all stories");
 		} else {
-			res.send(stories);
+			
 		}
+        res.send(err,stories);
 	});
 };
 exports.showSorted = function (req, res) {
@@ -71,8 +72,9 @@ exports.showSorted = function (req, res) {
 			console.log("Not retrieved all stories");
 		} else {
 			console.log("Retrieved all stories sorted by ascending title");
-			res.send(stories);
+			
 		}
+        res.send(err,stories);
 	});
 };
 exports.showSortedAuthorAsc = function (req, res) {
@@ -84,8 +86,9 @@ exports.showSortedAuthorAsc = function (req, res) {
 			console.log("Not retrieved all stories");
 		} else {
 			console.log("Retrieved all stories sorted by ascending author");
-			res.send(stories);
+
 		}
+        res.send(err,stories);
 	});
 };
 exports.showSortedAuthorDes = function (req, res) {
@@ -97,8 +100,9 @@ exports.showSortedAuthorDes = function (req, res) {
 			console.log("Not retrieved all stories");
 		} else {
 			console.log("Retrieved all stories sorted by descending author");
-			res.send(stories);
+			
 		}
+        res.send(err,stories);
 	});
 };
 exports.showSortedTitleDes = function (req, res) {
@@ -110,8 +114,9 @@ exports.showSortedTitleDes = function (req, res) {
 			console.log("Not retrieved all stories");
 		} else {
 			console.log("Retrieved all stories sorted by descending title");
-			res.send(stories);
+			
 		}
+        res.send(err,stories);
 	});
 };
 
@@ -124,8 +129,24 @@ exports.showByAuthor = function (req, res) {
 			console.log("Can't find stories by author");
 		} else {
 			console.log("Successfully found some stories with that author");
-			res.send(stories);
+			
 		}
+        res.send(err,stories);
+	});
+
+
+};
+exports.showByGenre = function (req, res) {
+	StoryModel.find({
+		"genre": req.params.genre
+	}, function (err, stories) {
+		if (err) {
+			console.log("Can't find stories by genre");
+		} else {
+			console.log("Successfully found some stories with that genre");
+			
+		}
+        res.send(err,stories);
 	});
 
 
@@ -138,8 +159,9 @@ exports.showByTitle = function (req, res) {
 			console.log("Can't find stories by title");
 		} else {
 			console.log("Successfully found some stories with that titile");
-			res.send(stories);
+			
 		}
+        res.send(err,stories);
 	});
 };
 exports.showByDescription = function (req, res) {
@@ -150,8 +172,9 @@ exports.showByDescription = function (req, res) {
 			console.log("Can't find stories by description");
 		} else {
 			console.log("Successfully found some stories with that description");
-			res.send(stories);
+			
 		}
+        res.send(err,stories);
 	});
 };
 exports.deleteAll = function (req, res) {
@@ -160,7 +183,7 @@ exports.deleteAll = function (req, res) {
 			console.log("Didn't delete anything");
 		} else {
 			console.log("Everything deleted");
-		}
+		}res.send(err,null);
 	});
 };
 
@@ -168,7 +191,7 @@ exports.getById = function (req, res) {
 	StoryModel.findOne({
 		"_id": req.params.id
 	}, function (err, story) {
-		//this conditional shold be for testing only!!!
+		//this conditional should be for testing only!!!
 		if (!err) {
 			console.log("retrieved 1 story");
 		} else {
@@ -187,6 +210,7 @@ exports.delete = function (req, res) {
 		} else {
 			console.log("Deleted one story with specific id");
 		}
+        res.send(err,null);
 	});
 
 }
@@ -212,5 +236,6 @@ exports.update = function (req, res) {
 			console.log("Successfully updated story "+story.author+story.title);
 
 		}
+        res.send(err,story);
 	});
 };

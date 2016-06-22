@@ -5,12 +5,12 @@ function backendGet(url, callback) {
 	$.ajax({
 		url: API_URL + url,
 		type: 'GET',
-		success: function (data) {
+		success: function (error,data) {
 
-			callback(null, data);
+			callback(error, data);
 		},
 		fail: function () {
-			callback(new Error("Ajax Failed"));
+			callback(new Error("Ajax Failed to make GET request"));
 		}
 	})
 
@@ -23,8 +23,8 @@ function backendPost(url, data, callback) {
 		type: 'POST',
 		contentType: 'application/json',
 		data: JSON.stringify(data),
-		success: function (data) {
-			callback(null, data);
+		success: function (error,data) {
+			callback(error, data);
 		},
 		fail: function () {
 			callback(new Error("Failed to upload to server"));
@@ -51,6 +51,10 @@ exports.showSortedAuthorAsc = function (callback) {
 exports.showSortedTitleDes = function (callback) {
 	backendGet('/api/showsorted-title-des/', callback);
 };
+exports.showByGenre = function (callback) {
+	backendGet('/api/show-by-genre/:genre', callback);
+};
+
 exports.showSortedAuthorDes = function (callback) {
 	backendGet('/api/showsorted-author-des', callback);
 };
