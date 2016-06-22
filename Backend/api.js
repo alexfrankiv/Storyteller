@@ -34,7 +34,6 @@ exports.TreeModel = TreeModel;
 exports.StoryModel = StoryModel;
 
 exports.create = function (req, res) {
-
 	new StoryModel({
 
 		title: req.body.title,
@@ -164,17 +163,17 @@ exports.deleteAll = function (req, res) {
 	});
 };
 
-exports.getId = function (req, res) {
+exports.getById = function (req, res) {
 	StoryModel.findOne({
 		"_id": req.params.id
 	}, function (err, story) {
+		//this conditional shold be for testing only!!!
 		if (!err) {
 			console.log("retrieved 1 story");
-			res.send(story);
 		} else {
-			console.log("Not retieved");
+			console.log("not retrieved")
 		}
-
+		res.send(err, story);
 	});
 }
 

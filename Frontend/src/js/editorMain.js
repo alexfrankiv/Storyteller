@@ -87,12 +87,14 @@ console.log("Showed good");}
 		$('#editor-child-right').text('');
 	});
 	$('#editor-save').click(function (e) {
+		if($('#editor-title').val()&&$('#editor-text').val()){
 		var nodeAbstract = storyTree._nodeById(storyTree.getLastMod());
 		nodeAbstract.title = $('#editor-title').val();
 		nodeAbstract.message = $('#editor-text').val();
 		//for div in tree
 		//$('#'+storyTree.getLastMod()).find('.story-node-text').html($('#editor-text').val());
 		$('#editor').modal('hide');
+		}
 	});
 	$('#story-save-btn').click(function(e){
 		//e.preventDefault();
