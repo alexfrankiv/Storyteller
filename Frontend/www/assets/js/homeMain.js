@@ -109,10 +109,16 @@ var storage = require('./storage');
             var html_code = Templates.StoryCard({"story":story});
         
            var  $html_code=$(html_code);
-            $html_code.find("#link-to-read").click(function(){
-              
+            console.log($html_code);
+            $html_code.find(".link-to-read").attr("id",story._id);
+            console.log($html_code.find(".link-to-read"));
+            $html_code.find("#"+story._id).click(function(){
+              console.log("Hello!");
               storage.set('currentStory',story);
                 storage.set('currentReqId',story._id);
+        window.location.href = "/view-story";
+
+                
             });
           
             $story_list.append($(html_code));
@@ -141,6 +147,7 @@ if(Object.keys(data).length>0){
         api.showByGenre(genre,function(data){
             if(Object.keys(data).length==0){
                 console.log("Can't display stories by genre");
+                initializeStoryList(data);
             }else{
                 if(Object.keys(data).length>0){
                 var Stories  = data; 
@@ -157,6 +164,7 @@ if(Object.keys(data).length>0){
         api.showByGenre(genre,function(data){
             if(!Object.keys(data).length>0){
                 console.log("Can't display stories by genre");
+                initializeStoryList(data);
             }else{
                 if(Object.keys(data).length>0){
                 var Stories  = data; 
@@ -173,6 +181,7 @@ if(Object.keys(data).length>0){
         api.showByGenre(genre,function(data){
             if(!Object.keys(data).length>0){
                 console.log("Can't display stories by genre");
+                initializeStoryList(data);
             }else{
                 if(Object.keys(data).length>0){
                 var Stories  = data; 
@@ -189,6 +198,7 @@ if(Object.keys(data).length>0){
         api.showByGenre(genre,function(data){
             if(!Object.keys(data).length>0){
                 console.log("Can't display stories by genre");
+               initializeStoryList(data);
             }else{
                 if(Object.keys(data).length>0){
                 var Stories  = data; 
@@ -205,6 +215,7 @@ if(Object.keys(data).length>0){
         api.showByGenre(genre,function(data){
             if(!Object.keys(data).length>0){
                 console.log("Can't display stories by genre");
+              initializeStoryList(data);
             }else{
                 if(Object.keys(data).length>0){
                 var Stories  = data; 
@@ -221,6 +232,7 @@ if(Object.keys(data).length>0){
         api.showByGenre(genre,function(data){
             if(!Object.keys(data).length>0){
                 console.log("Can't display stories by genre");
+                initializeStoryList(data);
             }else{
                 if(Object.keys(data).length>0){
                 var Stories  = data; 
@@ -237,6 +249,7 @@ if(Object.keys(data).length>0){
         api.showByGenre(genre,function(data){
             if(!Object.keys(data).length>0){
                 console.log("Can't display stories by genre");
+                initializeStoryList(data);
             }else{
                 if(Object.keys(data).length>0){
                 var Stories  = data; 
@@ -267,7 +280,7 @@ exports.set = function (key, value) {
 var ejs = require('ejs');
 
 exports.StoryTree_Node = ejs.compile("<div id=\"<%= id %>\" class=\"story-node\">\r\n\t<div class=\"container-fluid\">\r\n\t<p class=\"story-node-text\">\r\n\t\t<%= message %>\r\n\r\n\t</p>\r\n\t\t</div>\r\n\t<div class=\"btn btn-xs btn-success btn-circle add-child\">+</div>\r\n\t<div class=\"btn btn-xs btn-success btn-circle edit-btn\">e</div>\r\n\t<div class=\"btn btn-xs btn-danger btn-circle self-remove\">-</div>\r\n</div>\r\n");
-exports.StoryCard = ejs.compile("<div class = \"test-story\">\r\n<div class=\"story-card\">\r\n<div class=\"col-xs-1 col-sm-3 for-story-main\">\r\n<div class=\"story-i\">\r\n<h2>TITLE:<%=story.title%></h2>\r\n<h5>AUTHOR:<%= story.author %></h5>\r\n<h3> GENRE:<%= story.genre %></h3>\r\n\r\n<h3>ID: <%= story._id %></h3>\r\n    <h6>DESC:<%= story.description %></h6>\r\n    <a class=\"btn btn-xs btn-default btn-circle \" a href=\"/view-story\" id =\"link-to-read\">Link</a>\r\n    \r\n    \r\n</div>\r\n</div>\r\n</div>");
+exports.StoryCard = ejs.compile("<div class = \"test-story\">\r\n<div class=\"story-card\">\r\n<div class=\"col-xs-1 col-sm-3 for-story-main\">\r\n<div class=\"story-i\">\r\n<h2>TITLE:<%=story.title%></h2>\r\n<h5>AUTHOR:<%= story.author %></h5>\r\n<h3> GENRE:<%= story.genre %></h3>\r\n\r\n<h3>ID: <%= story._id %></h3>\r\n    <h6>DESC:<%= story.description %></h6>\r\n    <div class=\"btn btn-xs btn-default btn-circle link-to-read\">Link</div>\r\n    \r\n    \r\n</div>\r\n</div>\r\n</div>");
 
 
 

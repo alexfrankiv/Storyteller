@@ -15,10 +15,16 @@ var storage = require('./storage');
             var html_code = Templates.StoryCard({"story":story});
         
            var  $html_code=$(html_code);
-            $html_code.find("#link-to-read").click(function(){
-              
+            console.log($html_code);
+            $html_code.find(".link-to-read").attr("id",story._id);
+            console.log($html_code.find(".link-to-read"));
+            $html_code.find(".link-to-read").click(function(){
+              console.log("Hello!");
               storage.set('currentStory',story);
                 storage.set('currentReqId',story._id);
+        window.location.href = "/view-story";
+
+                
             });
           
             $story_list.append($(html_code));
@@ -47,6 +53,7 @@ if(Object.keys(data).length>0){
         api.showByGenre(genre,function(data){
             if(Object.keys(data).length==0){
                 console.log("Can't display stories by genre");
+                initializeStoryList(data);
             }else{
                 if(Object.keys(data).length>0){
                 var Stories  = data; 
@@ -63,6 +70,7 @@ if(Object.keys(data).length>0){
         api.showByGenre(genre,function(data){
             if(!Object.keys(data).length>0){
                 console.log("Can't display stories by genre");
+                initializeStoryList(data);
             }else{
                 if(Object.keys(data).length>0){
                 var Stories  = data; 
@@ -79,6 +87,7 @@ if(Object.keys(data).length>0){
         api.showByGenre(genre,function(data){
             if(!Object.keys(data).length>0){
                 console.log("Can't display stories by genre");
+                initializeStoryList(data);
             }else{
                 if(Object.keys(data).length>0){
                 var Stories  = data; 
@@ -95,6 +104,7 @@ if(Object.keys(data).length>0){
         api.showByGenre(genre,function(data){
             if(!Object.keys(data).length>0){
                 console.log("Can't display stories by genre");
+               initializeStoryList(data);
             }else{
                 if(Object.keys(data).length>0){
                 var Stories  = data; 
@@ -111,6 +121,7 @@ if(Object.keys(data).length>0){
         api.showByGenre(genre,function(data){
             if(!Object.keys(data).length>0){
                 console.log("Can't display stories by genre");
+              initializeStoryList(data);
             }else{
                 if(Object.keys(data).length>0){
                 var Stories  = data; 
@@ -127,6 +138,7 @@ if(Object.keys(data).length>0){
         api.showByGenre(genre,function(data){
             if(!Object.keys(data).length>0){
                 console.log("Can't display stories by genre");
+                initializeStoryList(data);
             }else{
                 if(Object.keys(data).length>0){
                 var Stories  = data; 
@@ -143,6 +155,7 @@ if(Object.keys(data).length>0){
         api.showByGenre(genre,function(data){
             if(!Object.keys(data).length>0){
                 console.log("Can't display stories by genre");
+                initializeStoryList(data);
             }else{
                 if(Object.keys(data).length>0){
                 var Stories  = data; 
