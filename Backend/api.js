@@ -46,17 +46,19 @@ exports.create = function (req, res) {
 
 	}).save(function (err, stories) {
 		if (!err) {
-			console.log("Saved story");
+            
+			console.log("Saved story"+stories._id);
+            res.send(stories);
 		} else {
-			res.status(500).send(err);
+			//res.status(500).send(err);
 			console.log("All is very bad ");
-		}res.status(200).send(stories);
+		}
 	});
 };
 exports.show = function (req, res) {
 	StoryModel.find({}, function (err, stories) {
 		if (err) {
-            res.status(500).send(err);
+          //  res.status(500).send(err);
 			console.log("Not retrieved all stories");
 		} else {
 			
@@ -70,7 +72,7 @@ exports.showSorted = function (req, res) {
 		'title': 1
 	}).exec(function (err, stories) {
 		if (err) {
-            res.status(500).send(err);
+           // res.status(500).send(err);
 			console.log("Not retrieved all stories");
 		} else {
 			console.log("Retrieved all stories sorted by ascending title");
@@ -85,7 +87,7 @@ exports.showSortedAuthorAsc = function (req, res) {
 		'author': 1
 	}).exec(function (err, stories) {
 		if (err) {
-            res.status(500).send(err);
+//res.status(500).send(err);
 			console.log("Not retrieved all stories");
 		} else {
 			console.log("Retrieved all stories sorted by ascending author");
@@ -100,7 +102,7 @@ exports.showSortedAuthorDes = function (req, res) {
 		'author': -1
 	}).exec(function (err, stories) {
 		if (err) {
-            res.status(500).send(err);
+           // res.status(500).send(err);
 			console.log("Not retrieved all stories");
 		} else {
 			console.log("Retrieved all stories sorted by descending author");
@@ -131,7 +133,7 @@ exports.showByAuthor = function (req, res) {
 		"author": req.params.author
 	}, function (err, stories) {
 		if (err) {
-            res.status(500).send(err);
+         //   res.status(500).send(err);
 			console.log("Can't find stories by author");
 		} else {
 			console.log("Successfully found some stories with that author");
@@ -149,7 +151,7 @@ exports.showByGenre = function (req, res) {
 		if (err) {
             
 			console.log("Can't find stories by genre");
-            res.status(500).send(err);
+          //  res.status(500).send(err);
 		} else {
 			console.log("Successfully found some stories with that genre");
 
@@ -164,7 +166,7 @@ exports.showByTitle = function (req, res) {
 		"title": req.params.title
 	}, function (err, stories) {
 		if (err) {
-            res.status(500).send(err);
+          //  res.status(500).send(err);
 			console.log("Can't find stories by title");
 		} else {
 			console.log("Successfully found some stories with that titile");
@@ -190,7 +192,7 @@ exports.showByDescription = function (req, res) {
 exports.deleteAll = function (req, res) {
 	StoryModel.remove({}, function (err) {
 		if (err) {
-            res.status(500).send(err);
+          //  res.status(500).send(err);
 			console.log("Didn't delete anything");
 		} else {
 			console.log("Everything deleted");
@@ -242,15 +244,15 @@ exports.update = function (req, res) {
 		description: req.body.description,
 		genre: req.body.genre,
 	}, {
-		upsert: true
+		upsert: false
 	}, function (err, story) {
 		if (err) {
 			console.log("have not found anything to update");
 		} else {
-
-			console.log("Successfully updated story "+story.author+story.title);
+console.log(req.body._id);
+			console.log("Successfully updated story "+story._id);
 
 		}
-        res.send(err,story);
+        res.send(story);
 	});
 };

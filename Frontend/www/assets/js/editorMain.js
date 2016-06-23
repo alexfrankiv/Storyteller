@@ -466,34 +466,48 @@ $(document).ready(function () {
 			});
 			$('#story-save-btn').click(function (e) {
 				//e.preventDefault();
+                
 				var storEditStory = storage.get('editStoryId');
+             
+              
 				var root = storyTree.getRoot();
 				var author = ($('#authors-name').val()) ? $('#authors-name').val() : 'Anonymous';
-				var storyObject = {
-					title: root.title,
-					root: root,
-					author: author,
-					description: $('#description').val(),
-					genre: $('#genre').val()
-				};
-				console.log(storyObject);
+                var storyObject ={ 
+                    _id:storEditStory,
+                    title: root.title,
+		root: root,
+		author: author,
+		description: $('#description').val(),
+		genre: $('#genre').val(),
+                    
+                };
+				
+					
+			
+				//console.log(storyObject);
+              //  alert("Changed");
 				if(storEditStory){
+                   // alert("Go update");
 				api.update(storyObject, function (data) {
-					if (!Object.keys(data).lenght > 0) {
+                   
+					if (Object.keys(data).length > 0) {
 						console.log("Updated story");
-						console.warn(data._id);
+						//console.warn(data._id);
 					} else {
-						console("failed");
+						console.log("failed to update by id");
 					}
 				});
 				}
 				else{
+                 
 					api.create(storyObject, function(data){
-						if (!Object.keys(data).lenght > 0) {
-						console.log("Created story");
+                       
+						if (Object.keys(data).length > 0) {
+						
 						storage.set('editStoryId', data._id);
+                          //  alert("Story with id:"+data._id);
 					} else {
-						console("failed");
+						console.log("failed");
 					}
 					});
 				}
@@ -511,12 +525,13 @@ $(document).ready(function () {
 						description: $('#description').val(),
 						genre: $('#genre').val()
 					};
-					console.log(storyObject);
+					//console.log(storyObject);
 					api.create(storyObject, function (data) {
-						if (!Object.keys(data).lenght > 0) {
-							console.log("Saved story");
+                      //  alert("New story new"+data._id);
+						if (Object.keys(data).length > 0) {
+							console.log("Saved story"+data._id);
 							storage.set('editStoryId', data._id);
-							console.warn(data._id);
+							//console.warn(data._id);
 						} else {
 							console("failed");
 						}
