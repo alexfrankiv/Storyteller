@@ -32,6 +32,7 @@ function backendPost(url, data, res_data) {
 }
 //get unique ObjectID for the document
 exports.getById = function (data, res_data) {
+    
 		backendGet('/api/story/' + data, res_data);
 	}
 	//show all stories from the db 

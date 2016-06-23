@@ -32,6 +32,7 @@ function backendPost(url, data, res_data) {
 }
 //get unique ObjectID for the document
 exports.getById = function (data, res_data) {
+    
 		backendGet('/api/story/' + data, res_data);
 	}
 	//show all stories from the db 
@@ -104,10 +105,12 @@ var MAX_CHILDREN = 3;
 
 var init = function () {
 	var idFromStorage = storage.get('currentReqId');
-	if (idFromStorage)
-		api.getById({
-			'_id': idFromStorage
-		}, function (data) {
+    
+   
+    console.log("ALERT:"+idFromStorage);
+	if (idFromStorage){
+        console.log(idFromStorage);
+		api.getById(idFromStorage, function (data) {
 			console.warn(data);
 			if (Object.keys(data).length > 0) {
 				console.log(data);
@@ -124,6 +127,7 @@ var init = function () {
 				console.log('invalid story id req');
 			}
 		});
+    }
 	else {
 		//MUST BE ENBETTERED!
 		console.log('no data in storage');

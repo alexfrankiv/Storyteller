@@ -204,12 +204,14 @@ exports.getById = function (req, res) {
 	}, function (err, story) {
 		//this conditional should be for testing only!!!
 		if (!err) {
-            res.status(500).send(err);
-			console.log("retrieved 1 story");
-		} else {
+          //  res.status(500).send(err);
+			console.log("retrieved 1 story"+story._id);
+            res.send(story);
+		} 
+        else {
 			console.log("not retrieved")
 		}
-		res.status(200).send(story);
+		//res.send(story);
 	});
 }
 
@@ -218,7 +220,7 @@ exports.delete = function (req, res) {
 		"_id": req.params.id
 	}, function (err) {
 		if (err) {
-            res.status(500).send(err);
+           // res.status(500).send(err);
 			console.log("Didn't delete anything");
 		} else {
 			console.log("Deleted one story with specific id");
