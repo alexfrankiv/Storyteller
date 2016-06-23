@@ -28,9 +28,9 @@ var storage = require('./storage');
        
     }
     var Stories  = [];//global objects for all retrieved stories;
-      api.show(function(err,data){
+      api.show(function(data){
         
-if(!err){
+if(Object.keys(data).length>0){
 
     Stories = data;
   //  console.log(Stories);
@@ -44,8 +44,8 @@ if(!err){
     $("#99").click(function(){
         var genre = $("#99").text();
         
-        api.showByGenre(genre,function(err,data){
-            if(!data){
+        api.showByGenre(genre,function(data){
+            if(Object.keys(data).length==0){
                 console.log("Can't display stories by genre");
             }else{
                 if(Object.keys(data).length>0){
@@ -60,8 +60,8 @@ if(!err){
     $("#9").click(function(){
         var genre = $("#9").text();
        
-        api.showByGenre(genre,function(err,data){
-            if(!data){
+        api.showByGenre(genre,function(data){
+            if(!Object.keys(data).length>0){
                 console.log("Can't display stories by genre");
             }else{
                 if(Object.keys(data).length>0){
@@ -76,8 +76,8 @@ if(!err){
   $("#5").click(function(){
         var genre = $("#5").text();
        
-        api.showByGenre(genre,function(err,data){
-            if(!data){
+        api.showByGenre(genre,function(data){
+            if(!Object.keys(data).length>0){
                 console.log("Can't display stories by genre");
             }else{
                 if(Object.keys(data).length>0){
@@ -92,8 +92,8 @@ if(!err){
   $("#2").click(function(){
         var genre = $("#2").text();
        
-        api.showByGenre(genre,function(err,data){
-            if(!data){
+        api.showByGenre(genre,function(data){
+            if(!Object.keys(data).length>0){
                 console.log("Can't display stories by genre");
             }else{
                 if(Object.keys(data).length>0){
@@ -108,8 +108,8 @@ if(!err){
  $("#6").click(function(){
         var genre = $("#6").text();
         
-        api.showByGenre(genre,function(err,data){
-            if(!data){
+        api.showByGenre(genre,function(data){
+            if(!Object.keys(data).length>0){
                 console.log("Can't display stories by genre");
             }else{
                 if(Object.keys(data).length>0){
@@ -124,8 +124,8 @@ if(!err){
         $("#8").click(function(){
         var genre = $("#8").text();
        
-        api.showByGenre(genre,function(err,data){
-            if(!data){
+        api.showByGenre(genre,function(data){
+            if(!Object.keys(data).length>0){
                 console.log("Can't display stories by genre");
             }else{
                 if(Object.keys(data).length>0){
@@ -140,8 +140,8 @@ if(!err){
          $("#4").click(function(){
         var genre = $("#4").text();
        
-        api.showByGenre(genre,function(err,data){
-            if(!data){
+        api.showByGenre(genre,function(data){
+            if(!Object.keys(data).length>0){
                 console.log("Can't display stories by genre");
             }else{
                 if(Object.keys(data).length>0){

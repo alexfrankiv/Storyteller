@@ -141,9 +141,9 @@ console.log("Successfully deleted");}
 });*/
         
 		//save story method should be here!
-        api.create(storyObject,function(err,data){
-            if(!err){
-               console.log("Saved");
+        api.create(storyObject,function(data){
+            if(!Object.keys(data).lenght>0){
+               console.log("Saved story");
                 
                 $("#story-save-btn").prop("disabled",true);
                
