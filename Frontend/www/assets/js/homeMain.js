@@ -112,7 +112,7 @@ var storage = require('./storage');
             console.log($html_code);
             $html_code.find(".link-to-read").attr("id",story._id);
             console.log($html_code.find(".link-to-read"));
-            $html_code.find("#"+story._id).click(function(){
+            $html_code.find(".link-to-read").click(function(){
               console.log("Hello!");
               storage.set('currentStory',story);
                 storage.set('currentReqId',story._id);
