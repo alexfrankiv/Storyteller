@@ -32,7 +32,8 @@ function backendPost(url, data, res_data) {
 }
 //get unique ObjectID for the document
 exports.getById = function (data, res_data) {
-		backendGet('/api/story/' + data, res_data);
+	//Look here!!!
+		backendGet('/api/story/', data, res_data);
 	}
 	//show all stories from the db 
 exports.show = function (res_data) {
@@ -103,33 +104,35 @@ var CURRENT = null;
 var MAX_CHILDREN = 3;
 
 var init = function () {
-	var storyFromStorage = storage.get('currentStory');
-	if (storyFromStorage) {
-		STORY = storyFromStorage;
-		console.log('TREE_ROOT = storyFromStorage;');
-	} else {
-		var idFromStorage = storage.get('currentReqId');
-		if (idFromStorage)
-			api.getById(idFromStorage, function (data) {
-				if (Object.keys(data).length>0) {
-					console.log(data);
-					STORY = data;
-					storage.set('currentStory', STORY);
-					console.log("TREE_ROOT = data")
-				} else {
-					//MUST BE ENBETTERED!
-					console.log('invalid story id req');
-				}
-			});
-		else {
-			//MUST BE ENBETTERED!
-			console.log('no data in storage');
-			//alert('invalid page load!');
-		}
+	var idFromStorage = storage.get('currentReqId');
+	if (idFromStorage)
+		api.getById({
+			'_id': idFromStorage
+		}, function (data) {
+			console.warn(data);
+			if (Object.keys(data).length > 0) {
+				console.log(data);
+				STORY = data;
+				storage.set('currentStory', STORY);
+				console.log("TREE_ROOT = data")
+				CURRENT = STORY.root;
+				$('#story-name').html(STORY.title);
+				$('#story-author').html(STORY.author);
+
+				load(CURRENT);
+			} else {
+				//MUST BE ENBETTERED!
+				console.log('invalid story id req');
+			}
+		});
+	else {
+		//MUST BE ENBETTERED!
+		console.log('no data in storage');
+		//alert('invalid page load!');
 	}
 
 	//this thing is for testing only!!!
-	STORY = {
+	/*STORY = {
 			title: 'Story about a book',
 			root: {
 				id: 0,
@@ -189,11 +192,8 @@ var init = function () {
 			author: 'Ivan Franko',
 			description: 'Some description here',
 			genre: "Drama",
-		}
-		//end of for-testing-only
-	CURRENT = STORY.root;
-	$('#story-name').html(STORY.title);
-	$('#story-author').html(STORY.author);
+		}*/
+	//end of for-testing-only
 };
 
 var _nodeById = function (id) {
@@ -282,7 +282,6 @@ $(document).ready(function () {
 
 	//onload
 	init();
-	load(CURRENT);
 });
 
 },{"./api":1,"./storage":3}],3:[function(require,module,exports){
