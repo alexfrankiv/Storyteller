@@ -27,11 +27,12 @@ $(document).ready(function () {
 				//e.preventDefault();
                 
 				var storEditStory = storage.get('editStoryId');
-             
+             var storyObject =[];
               
 				var root = storyTree.getRoot();
 				var author = ($('#authors-name').val()) ? $('#authors-name').val() : 'Anonymous';
-                var storyObject ={ 
+                if(storEditStory){
+                storyObject ={ 
                     _id:storEditStory,
                     title: root.title,
 		root: root,
@@ -40,7 +41,19 @@ $(document).ready(function () {
 		genre: $('#genre').val(),
                     
                 };
-				
+                }
+                else{ 
+                    storyObject = {
+                        title: root.title,
+		root: root,
+		author: author,
+		description: $('#description').val(),
+		genre: $('#genre').val(),
+                    
+                };
+                    }
+                    console.log("storobject not found");
+                
 					
 			
 				//console.log(storyObject);
@@ -57,7 +70,7 @@ $(document).ready(function () {
 					}
 				});
 				}
-				else{
+				else if(!storEditStory){
                  
 					api.create(storyObject, function(data){
                        
