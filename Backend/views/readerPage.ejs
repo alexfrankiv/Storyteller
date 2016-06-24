@@ -4,8 +4,8 @@
 <head lang="en">
 	<meta charset="UTF-8">
 	<title>
-        <%= pageTitle %> - StoryTeller
-    </title>
+		<%= pageTitle %> - StoryTeller
+	</title>
 
 	<!-- Bootsrap CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -20,8 +20,12 @@
 	<link rel="stylesheet" href="assets/css/animation.css">
 	<!-- LESS основний файл -->
 	<link rel="stylesheet/less" type="text/css" href="assets/less/main.less" />
-    
+
 	<link rel="stylesheet/less" type="text/css" href="assets/less/story.less" />
+
+	<link href="assets/css/bootstrap-switch.css" rel="stylesheet">
+
+	<script src="assets/js/bootstrap-switch.js"></script>
 	<!-- LESS JavaScript компілятор -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
 
@@ -29,17 +33,18 @@
 
 <body id="body-elem" class="original">
 
-	<div class="container-fluid">
+	<div class="container-fluid cont-for-all">
+
 		<div class="navbar main-menu">
 			<ul class="nav">
 				<li>
-					<a href="#" class="menu-menu sficon-menu" title="Menu"></a>
+					<a href="/" class="menu-menu icon-menu" title="Menu"></a>
 				</li>
 				<li>
-					<a href="#" class="menu-back icon-pencil" title="Create"></a>
+					<a href="/new-story" class="menu-back icon-pencil" title="Create"></a>
 				</li>
 				<li>
-					<a href="#" class="menu-location icon-info" title="About"></a>
+					<a href="/home#load-wrap" class="menu-location icon-search" title="Search"></a>
 				</li>
 
 
@@ -47,114 +52,39 @@
 		</div>
 		<!-- /navbar -->
 
-		<!--<div class="hide search-bar"><input id="global-search-bar" placeholder="Search by Keyword"  /><a id="global-search-submit" onClick="handleGlobalSearchBarClick($('#global-search-bar').val());">Press Enter</a></div>-->
 
-		<div class="menu-bar">
-			<div class="relative">
-				<ul class="menu-list">
-					<li>
+		<div class="main-cont">
+			<div class="temp">
+				<h5>You are reading: <span id="story-name"></span></h5>
+				<span class="for-author"><h5 >by <span id="story-author"></span></h5>
+				</span>
+			</div>
+			<div class="container-canvas story-cont col-sm-9 col-md-9 col-lg-9">
+				<div class="story-info">
 
-						<a href="#" class="menu-title">
-							<div class="button-wrap">
-								<div href="#" class="btn btn-blend green action-close">Close</div>
+					<div class="story-info-body">
+						<div class="panel panel-warning for-node">
+							<div class="panel-heading" id='node-title'></div>
+							<div id="node-text" class="panel-body">
 							</div>
-							Menu
-						</a>
-					</li>
-
-					<li><a href="feature.cfm" class="">My stories</a></li>
-
-					<li>
-						<a href="#" class="">Find sth to read</a>
-						<div class="submenu">
-							<ul class="menu-list">
-								<li>
-
-									<a href="#" class="menu-title">
-                Select Genre
-              </a>
-								</li>
-								<li class="menu-pad">
-									<a href="#">Drama</a>
-								</li>
-								<li class="menu-pad">
-									<a href="#" onClick="clearState();">Romantic</a>
-								</li>
-								<li class="menu-pad">
-									<a href="#" onClick="clearState();">Fairy Tale</a>
-								</li>
-								<li class="menu-pad">
-									<a href="#" onClick="clearState();">Detective</a>
-								</li>
-								<li class="menu-pad">
-									<a href="#" onClick="clearState();">Fantasy</a>
-								</li>
-								<li class="menu-pad">
-									<a href="#" onClick="clearState();">Horror</a>
-								</li>
-								<li class="menu-pad">
-									<a href="#" onClick="clearState();">Adventure</a>
-								</li>
-							</ul>
 						</div>
 
-					</li>
+
+						<img class="img-genre" src="www/assets/images/rainbow.png">
+					</div>
 
 
-
-
-
-				</ul>
+				</div>
 			</div>
-			<!-- /relative -->
-		</div>
-		<!-- /menu-bar -->
-	</div>
-	<!--<h1>Storyteller main Editor</h1>
-		<p> just simple text</p>
-		<h6> header 6</h6>-->
-	<div class="main-cont">
-		<div class="container-canvas col-sm-9">
-			<div id="story-info">
-                <div class="story-info-header"><h5>You are reading: <span id="story-name"></span></h5>
-                    <span><h5 class="for-author">by <span id="story-author"></span></h5></span>
-                </div>
-                <div class="story-info-body">
-                        <div class="panel panel-warning for-node">
-      <div class="panel-heading" id='node-title'></div>
-      <div id="node-text" class="panel-body"></div>
-    </div>
-                </div>
+			<div class="navig-pan col-sm-3 col-md-3 col-lg-3">
+
+				<button type="button" class="btn btn-link" id="navigation-back">Back</button>
+
+				<div id="variants" class="container-fluid"></div>
 			</div>
-		</div>
-
-		<div class="right-pan col-sm-3">
-
-			<div class="right-head">
-                <h3>Navigation</h3></div>
-            <button type="button" class="btn btn-link" id="navigation-back">Back</button>
-			
-			<div id="variants" class="container-fluid"></div>
-
-            <button type="button" id="btn-atm" class="btn btn-link">Atmospherize</button>
-            <!-- для панельки не треба, просто варіант анімації панельки без додаткових скриптів -->
-            <div class="form-group">
-    <a for="collapseOne" data-toggle="collapse" href="#collapseOne"             aria-expanded="true" aria-controls="collapseOne">+ addInfo</a>
-    <div id="collapseOne" class="collapse">
-        <div class="panel panel-warning for-node">
-      <div class="panel-heading">...to keep moving</div>
-      <div class="panel-body">
-          
-            </div>
-        </div>
-    
-    </div>
-</div>
 
 		</div>
-
 	</div>
-    
 	<!-- jQuery JavaScript -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>

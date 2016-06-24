@@ -13,235 +13,233 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1, user-scalable=no">
 
 
+	<!-- Bootsrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
 	<!-- Loading Bootstrap -->
-	<link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+	<link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet" >
 
 	<!-- Loading Flat UI -->
-	<link rel="stylesheet" type="text/css" href="assets/css/main.css" />
+	
 
+    	<link rel="stylesheet" type="text/css" href="assets/css/main.css" />
+    
+    
+    	<link rel="stylesheet/less" type="text/css" href="assets/less/main.less" />
 	<!-- Loading SF Icons  -->
 	<link rel="stylesheet" href="assets/css/fontello-embedded.css">
 	<link rel="stylesheet" href="assets/css/animation.css">
-	<!--<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-     -->
-	<!--[if IE 7]>
-    <link rel="stylesheet" href="fonts/fontello/sfarts_icons-ie7.css">
-  <![endif]-->
-	<!--
-  <link rel="shortcut icon" href="images/favicon.ico">
- -->
-	<!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
-	<!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-  <![endif]-->
+	
+<!-- for carousel -->
+    
+    <script type="text/javascript" src="//use.typekit.net/kei2cfp.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    
+    
+    
+        <style>
+      /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+      * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 
+body, html {
+  font-family: "europa-1","europa-2", sans-serif;
+  overflow: hidden;
+}
 
+.wrapper {
+  width: 100% - 55px;
+  
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+}
 
+/**
+ * Use this wrapper only for demo purposes
+ * So you can show the items outside the wrapper
+ */
+.wrapper--demo {
+  overflow: visible;
+    margin-left: 55px;
+}
+.wrapper--demo:after, .wrapper--demo:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 2;
+}
+.wrapper--demo:before {
+  left: -100%;
+}
 
+.carousel {
+  width: 100%;
+  position: relative;
+}
+.carousel .carousel__content {
+  width: auto;
+  position: relative;
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-transition: translate3d(0, 0, 0);
+}
+.carousel .carousel__content .item {
+  display: block;
+  float: left;
+  width: 100%;
+  position: relative;
+}
+.carousel .carousel__content .item .title {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin: -33px 0 0 0;
+  padding: 0;
+  font-size: 3rem;
+  width: 100%;
+  text-align: center;
+  letter-spacing: .3rem;
+  color: #FFF;
+}
+.carousel .carousel__content .item .title--sub {
+  margin-top: 20px;
+  font-size: 1.2em;
+  opacity: .5;
+}
+.carousel .carousel__content .item img {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+}
+.carousel .carousel__nav {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  margin-top: -17px;
+  left: 0;
+  z-index: 1;
+}
+.carousel .carousel__nav .nav {
+  position: absolute;
+  top: 0;
+  color: #000;
+  background: #FFF;
+  padding: 8px 12px;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: .8rem;
+  transition: padding .25s ease;
+}
+.carousel .carousel__nav .nav:hover {
+  padding: 8px 20px;
+}
+.carousel .carousel__nav .nav--left {
+  border-radius: 0px 3px 3px 0px;
+}
+.carousel .carousel__nav .nav--right {
+  right: 0;
+  border-radius: 3px 0px 0px 3px;
+}
+            
+            .for-search-res{
+                margin-left: 55px;
+            }
+            
+            
+            .left-div{
+                
+                background-color: firebrick;
+            }
+            
+            .story-search{
+                margin-left: 2%;
+                width: 76%;
+                height: 100%;
+                background-color: darkviolet;
+            }
 
+    </style>
+
+    
+        <script src="assets/js/prefixfree.min.js"></script>
+
+    
+
+    
 </head>
 
 <body class="one-spot home">
-	<div id="wrapper">
-
+	
 		<div class="navbar main-menu">
 			<ul class="nav">
 				<li>
-					<a href="#" class="menu-menu sficon-menu" title="Menu"></a>
+					<a href="/home" class="menu-menu icon-menu" title="Menu"></a>
 				</li>
 				<li>
 					<a href="/new-story" class="menu-back icon-pencil" title="Create"></a>
 				</li>
 				<li>
-					<a href="#" class="menu-location icon-info" title="About"></a>
+					<a href="#load-wrap" class="menu-location icon-search" title="Search"></a>
 				</li>
 
 
 			</ul>
 		</div>
-		<!-- /navbar -->
-
-		<!--<div class="hide search-bar"><input id="global-search-bar" placeholder="Search by Keyword"  /><a id="global-search-submit" onClick="handleGlobalSearchBarClick($('#global-search-bar').val());">Press Enter</a></div>-->
-
-		<div class="menu-bar">
-			<div class="relative">
-				<ul class="menu-list">
-					<li>
-
-						<a href="#" class="menu-title">
-							<div class="button-wrap">
-								<div href="#" class="btn btn-blend green action-close">Close</div>
-							</div>
-							Menu
-						</a>
-					</li>
-
-					<li><a href="feature.cfm" class="">My stories</a></li>
-
-					<li>
-						<a href="#" class="">Find sth to read</a>
-						<div class="submenu">
-							<ul class="menu-list">
-								<li>
-
-									<a href="#" class="menu-title">
-                Select Genre
-              </a>
-								</li>
-								<li class="menu-pad">
-									<a href="#">Drama</a>
-								</li>
-								<li class="menu-pad">
-									<a href="#" onClick="clearState();">Romantic</a>
-								</li>
-								<li class="menu-pad">
-									<a href="#" onClick="clearState();">Fairy Tale</a>
-								</li>
-								<li class="menu-pad">
-									<a href="#" onClick="clearState();">Detective</a>
-								</li>
-								<li class="menu-pad">
-									<a href="#" onClick="clearState();">Fantasy</a>
-								</li>
-								<li class="menu-pad">
-									<a href="#" onClick="clearState();">Horror</a>
-								</li>
-								<li class="menu-pad">
-									<a href="#" onClick="clearState();">Adventure</a>
-								</li>
-							</ul>
-						</div>
-
-					</li>
-
-
-
-
-
-				</ul>
-			</div>
-			<!-- /relative -->
+    
+    <div class="wrapper wrapper--demo">
+	<div class="carousel">
+		<div class="carousel__content">
+			<div class="item">
+        <p class="title">First</p>
+        <img src="https://wallpaperscraft.ru/image/strazhi_galaktiki_guardians_of_the_galaxy_enot_raketa_98783_1366x768.jpg" alt="">
+      </div>
+			<div class="item">
+        <p class="title">Second</p>
+        <img src="http://luxfon.com/pic/201203/1366x768/luxfon.com-3686.jpg" alt="">
+      </div>
+			<div class="item">
+        <p class="title">Third</p>
+        <img src="http://www.kinogallery.com/img/wallpaper/kinogallery-wallpaper-0035337001455185585-1366x768.jpg" alt="">
+      </div>
+			<div class="item">
+        <p class="title">Fourth</p>
+        <img src="http://www.topoboi.com/pic/201309/1366x768/topoboi.com-14613.jpg" alt="">
+      </div>
+			<div class="item">
+        <p class="title">Fifth</p>
+        <img src="http://placehold.it/1800x850/F77C85/FFF&text=&nbsp;" alt="">
+      </div>
+			<div class="item">
+        <p class="title">Sixth</p>
+        <p class="title title--sub">Last Item</p>
+        <img src="http://placehold.it/1800x850/00FFAE/FFF&text=&nbsp;" alt="">
+      </div>
 		</div>
-		<!-- /menu-bar -->
-		<div class="hide submenu-bar"></div>
-
-
-
-		<div id="bounds">
-			<div class="header">
-				<div class="button-wrap">
-					<a href="#" class="sficon-remove"></a>
-				</div>
-				<div class="message"><a href="#">Welcome </a></div>
-			</div>
-
-			<div id="main-wrap">
-				<div class="inner-wrap scroll-pane overthrow">
-					<div id="top-left" class="spot scroll-pane overthrow">
-						<div class="spothead">
-							<h3 class="title">Features</h3>
-						</div>
-						<!-- /spothead -->
-						<div class="inner">
-						</div>
-						<!-- .inner -->
-					</div>
-					<!-- /#top-left -->
-					<div class="middle-center-bottom-right overthrow">
-						<div id="middle-center" class="spot scroll-pane overthrow">
-
-							<div class="slideshow">
-
-
-								<div class="slide" style="background-image:url(assets/images/slide1.jpg);">
-
-									<div class="fade-overlay">
-										<div class="pad">
-											<h1 class="title"><a href="#">Title 1 the best story ever
-</a></h1>
-											<h5 class="description">The best story ever</h5>
-										</div>
-									</div>
-
-								</div>
-								<!-- /slide -->
-
-								<div class="slide" style="background-image:url(assets/images/slide2.jpg);">
-
-									<div class="fade-overlay">
-										<div class="pad">
-											<h1 class="title"><a href="#">Title 2 thbuybuybuyuyu njnjnkn
-                          njnjkn
-</a></h1>
-											<h5 class="description">ololoolololololololololo</h5>
-										</div>
-									</div>
-
-								</div>
-								<!-- /slide -->
-
-								<div class="slide" style="background-image:url(assets/images/slide3.jpg);">
-
-									<div class="fade-overlay">
-										<div class="pad">
-											<h1 class="title"><a href="#">Title3
-                          dcokocokcpo njknkjnkjnjnjknj
-</a></h1>
-											<h5 class="description">about ijijoijoijoijjijoijiojio</h5>
-										</div>
-									</div>
-
-								</div>
-								<!-- /slide -->
-
-								<div class="slide" style="background-image:url(assets/images/slide4.jpg);">
-
-									<div class="fade-overlay">
-										<div class="pad">
-											<h1 class="title"><a href="#">Story bfhyhyhyhyhhhg
-                          fdvfdvfvf
-</a></h1>
-											<h5 class="description">rgrgr rtgtrgt tgt</h5>
-										</div>
-									</div>
-
-								</div>
-								<!-- /slide -->
-
-								<div class="slide" style="background-image:url(assets/images/slide5.jpg);">
-
-									<div class="fade-overlay">
-										<div class="pad">
-											<h1 class="title"><a href="#">Story thrthtrhtr regregrggeger btrg
-</a></h1>
-											<h5 class="description">fsrfrfe rfrfr fvgd</h5>
-										</div>
-									</div>
-
-								</div>
-								<!-- /slide -->
-
-								<div class="slide" style="background-image:url(assets/images/slide6.jpg);">
-
-									<div class="fade-overlay">
-										<div class="pad">
-											<h1 class="title"><a href="#">rfef story fgbfhththththththbg ghggf
-</a></h1>
-											<h5 class="description">about lolololol </h5>
-										</div>
-									</div>
-
-								</div>
-								<!-- /slide -->
-
-								<div class="cycle-pager"></div>
-							</div>
-							<!-- /slideshow -->
-
+    
+    <div class="carousel__nav">
+      <a href="#" class="nav nav--left">Previous</a>
+      <a href="#" class="nav nav--right">Next</a>
+    </div>
+    
+	</div>
+</div>
+    <div class="container-fluid for-search-res">
+    <div class="row">
+        
+<div class="right-div">
+  
 							<div class="highlights">
-								<div class="handle"></div>
-								<div class="drawer"></div>
-								<div class="inside">
+								<div></div>
+								<div ></div>
+								
 									<div class="categories">
 
 										<a name="highlights"></a>
@@ -269,77 +267,19 @@
 
 									</div>
 
-									<div class="browse">
-										<div class="load-wrap">
-											<div class="hide browse-top hide"></div>
-											<script id="disp-template" type="x-handlebars-template">
-												{{#each data}}
-												<div class="split cat-title">
-													<h5>{{discipline}}<a class="rss" href="http://www.sfarts.org/rss/rss.cfm?disp_num={{disp_num}}">RSS</a></h5></div>
-
-												<div class="split see-more">{{{hideMoreForLessTop disp_num discipline}}}</div>
-												{{/each}}
-											</script>
-											<ul class="pods grid-view" id="grid-view"></ul>
-											<script id="pods-template" type="x-handlebars-template">
-												{{#each data}}
-												<li class="pod">
-													<a href="event.cfm?event_num={{event_num}}" class="link">
-
-														<div class="pad">
-															<h4 class="title">{{title}}</h4> {{{dateDispSwitch discipline date_string}}}
-															<div class="detail date">{{date_string}}</div>
-															<div class="detail description">{{storytext}}</div>
-														</div>
-													</a>
-												</li>
-												{{/each}}
-											</script>
-
-											<br>
-
-											<span id="bottomSeeMore"> </span>
-											<script id="seeMoreTemplate" type="x-handlebars-template">
-												{{#each data}} {{{hideMoreForLess disp_num discipline}}} {{/each}}
-											</script>
-
-										</div>
-										<!-- load-wrap -->
-									</div>
-									<!-- browse -->
-								</div>
 								<!-- inside -->
 							</div>
 							<!-- /highlights -->
 
-
-						</div>
-						<!-- /#middle-center -->
-
-						<div id="bottom-right" class="spot scroll-pane overthrow">
-							<div class="spothead">
-								<h5 class="title"></h5>
-							</div>
-							<div class="inner">
-
-							</div>
-							<!-- /.inner -->
-						</div>
-						<!-- /#bottom-right -->
-						<a href="#" class="read-more">Load All</a>
-					</div>
-					<!--/#middle-center-bottom-right -->
-					<!--<div class="overlay"></div>-->
-				</div>
-				<!-- /.inner-wrap -->
-			</div>
-			<!-- /#main-wrap -->
-		</div>
-		<!--/ #bounds -->
-
-	</div>
-	<!-- /#wrapper -->
-
+        </div>
+		<!-- ANCHOR! ARRRG! -->
+		<a name="load-wrap"></a>
+        <div class="load-wrap"></div>
+        
+      </div>  
+        
+        
+  </div>
 
 	<!-- Load JS here for best performance -->
 
@@ -361,6 +301,8 @@
 	</script>
 	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    
+    
 	<script src="assets/js/response.min.js"></script>
 	<script src="assets/js/compressed.js"></script>
 	<script src="assets/js/custom.js"></script>
@@ -410,8 +352,13 @@
 		})();
 
 	</script>
+    
+
 	<!-- Own js -->
 	<script type="text/javascript" src="assets/js/homeMain.js"></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.9/jquery.transit.min.js'></script>
+
+        <script src="assets/js/index.js"></script>
 
 </body>
 

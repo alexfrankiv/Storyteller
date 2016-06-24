@@ -45,10 +45,8 @@
 					</div>
 
 					<div>
-						<div id="container">
-							<p id="editor-child-left"></p>
-							<p id="editor-child-center"></p>
-							<p id="editor-child-right"></p>
+						<div id="variants">
+							
 						</div>
 					</div>
 				</div>
@@ -65,19 +63,17 @@
 	</div>
 	<!-- popup (bs modal) -->
 
-
-
-	<div class="container-fluid">
+<div class="container-fluid">
 		<div class="navbar main-menu">
 			<ul class="nav">
 				<li>
-					<a href="#" class="menu-menu sficon-menu" title="Menu"></a>
+					<a href="/home" class="menu-menu icon-menu" title="Menu"></a>
 				</li>
 				<li>
-					<a href="#" class="menu-back icon-pencil" title="Create"></a>
+					<a href="/new-story" class="menu-back icon-pencil" title="Create"></a>
 				</li>
 				<li>
-					<a href="#" class="menu-location icon-info" title="About"></a>
+					<a href="/home#load-wrap" class="menu-location icon-search" title="Search"></a>
 				</li>
 
 
@@ -87,66 +83,7 @@
 
 		<!--<div class="hide search-bar"><input id="global-search-bar" placeholder="Search by Keyword"  /><a id="global-search-submit" onClick="handleGlobalSearchBarClick($('#global-search-bar').val());">Press Enter</a></div>-->
 
-		<div class="menu-bar">
-			<div class="relative">
-				<ul class="menu-list">
-					<li>
-
-						<a href="#" class="menu-title">
-							<div class="button-wrap">
-								<div href="#" class="btn btn-blend green action-close">Close</div>
-							</div>
-							Menu
-						</a>
-					</li>
-
-					<li><a href="feature.cfm" class="">My stories</a></li>
-
-					<li>
-						<a href="#" class="">Find sth to read</a>
-						<div class="submenu">
-							<ul class="menu-list">
-								<li>
-
-									<a href="#" class="menu-title">
-                Select Genre
-              </a>
-								</li>
-								<li class="menu-pad">
-									<a href="#">Drama</a>
-								</li>
-								<li class="menu-pad">
-									<a href="#" onClick="clearState();">Romantic</a>
-								</li>
-								<li class="menu-pad">
-									<a href="#" onClick="clearState();">Fairy Tale</a>
-								</li>
-								<li class="menu-pad">
-									<a href="#" onClick="clearState();">Detective</a>
-								</li>
-								<li class="menu-pad">
-									<a href="#" onClick="clearState();">Fantasy</a>
-								</li>
-								<li class="menu-pad">
-									<a href="#" onClick="clearState();">Horror</a>
-								</li>
-								<li class="menu-pad">
-									<a href="#" onClick="clearState();">Adventure</a>
-								</li>
-							</ul>
-						</div>
-
-					</li>
-
-
-
-
-
-				</ul>
-			</div>
-			<!-- /relative -->
-		</div>
-		<!-- /menu-bar -->
+		
 	</div>
 	<!--<h1>Storyteller main Editor</h1>
 		<p> just simple text</p>
@@ -160,7 +97,8 @@
 		<div class="right-pan col-sm-3">
 
 			<div class="right-head">
-				<h3>Create new story</h3></div>
+				<h3 class="head-title">Create new story</h3></div>
+            <button class="btn btn-default" id="story-new-btn">New</button>
 			<form role="form" class="pan">
 				<div class="form-group">
 					<label for="authors-name">Author's name:</label>
@@ -183,8 +121,7 @@
 						<option value='Adventure'>Adventure</option>
 					</select>
 				</div>
-				<button class="btn btn-default" id='story-new-btn'>
-				New</button>
+
 				<button class="btn btn-default" id="story-save-btn">Save</button>
 			</form>
 		</div>

@@ -49,6 +49,7 @@ function configureEndpoints(app) {
 	//Сторінки
 	app.get('/new-story', pages.editorPage);
 	app.get('/view-story', pages.readerPage);
+	app.get('/home', pages.homePage);
 	app.get('/', pages.homePage);
 
 	//Сторінка замовлення
