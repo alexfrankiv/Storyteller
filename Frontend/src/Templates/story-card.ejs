@@ -1,14 +1,13 @@
 <div class = "test-story">
 <div class="story-card">
-<div class="col-xs-1 col-sm-3 for-story-main">
+<div class="col-xs-6 col-sm-4 col-md-3 for-story-main">
 <div class="story-i">
-<h2>TITLE:<%=story.title%></h2>
-<h5>AUTHOR:<%= story.author %></h5>
-<h3> GENRE:<%= story.genre %></h3>
+<h3><%=story.title%></h3>
+<h5>by <%= story.author %></h5>
+<h4> Genre: <%= story.genre %></h4>
 
-<h3>ID: <%= story._id %></h3>
-    <h6>DESC:<%= story.description %></h6>
-    <div class="btn btn-xs btn-default btn-circle link-to-read">Link</div>
+    <h6><%= story.description %></h6>
+    <div class="btn btn-xs btn-default btn-circle link-to-read">Read</div>
     
     
 </div>

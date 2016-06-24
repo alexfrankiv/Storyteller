@@ -99,8 +99,8 @@ function node(id, x, y, parentId) {
 		e.preventDefault();
 		var me = _nodeById(id);
 		LAST_MOD=id;
-		$('#editor-title').val(me.title);
-		$('#editor-text').val(me.message);
+		$('#editor-title').attr('placeholder', me.title);
+		$('#editor-text').attr('placeholder',me.message);
 		switch(me.children.length){
 			case 1:
 				$('#editor-child-center').text(me.children[0].title);

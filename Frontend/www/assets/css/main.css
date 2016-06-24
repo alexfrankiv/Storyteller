@@ -117,7 +117,7 @@ img#eventImage {
 }
 body {
     height: 200%;
-  color: #000000;
+  background-color: #FAFED1;
   font-family: "AvenirNextLTW01-Regular", 'Quattrocento Sans', Helvetica, Arial, sans-serif;
   font-size: 17px;
   line-height: 1.6;
@@ -135,7 +135,7 @@ label {
   color: #000;
 }
 a {
-  color: #FFE048;
+  color: #298C5F;
   text-decoration: none;
   -webkit-transition: 0.25s;
   -moz-transition: 0.25s;
@@ -376,7 +376,7 @@ font-family:'AvenirNextW01-CnLightIt';
 .btn {
   border: none;
   background: #ffffff;
-  color: #126fdd;
+  
   padding: 9px 12px 10px;
   line-height: 22px;
   text-decoration: none;
@@ -435,7 +435,7 @@ font-family:'AvenirNextW01-CnLightIt';
   margin-right: -2px;
 }
 .btn.btn-primary {
-  background-color: #2ecc71;
+  background-color:darkcyan;
 }
 .btn.btn-primary:hover,
 .btn.btn-primary:focus,
@@ -5127,4 +5127,33 @@ input.datepicker[readonly] {
 
 .for-search-panel{
     height: 100%;
+}
+
+.test-story{
+	text-align: center;
+}
+
+.
+.story-info-body .for-node #node-text{
+	
+	text-align: left;
+}
+.story-i{
+	background-color: white;
+	opacity: 0.7;
+	border-radius: 7px; 
+	border: 1px solid;
+	border-color: grey;
+	margin-bottom: 10px;
+	font-family: cursive;
+	padding: 10px;
+	
+}
+
+
+.story-i h3{
+	
+	font-family: cursive;
+	
+	color: #298C5F;
 }
