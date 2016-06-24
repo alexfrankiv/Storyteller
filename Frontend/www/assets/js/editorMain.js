@@ -100,8 +100,8 @@ function node(id, x, y, parentId) {
 		e.preventDefault();
 		var me = _nodeById(id);
 		LAST_MOD=id;
-		$('#editor-title').val(me.title);
-		$('#editor-text').val(me.message);
+		$('#editor-title').attr('placeholder', me.title);
+		$('#editor-text').attr('placeholder',me.message);
 		switch(me.children.length){
 			case 1:
 				$('#editor-child-center').text(me.children[0].title);
@@ -575,7 +575,7 @@ exports.set = function (key, value) {
 var ejs = require('ejs');
 
 exports.StoryTree_Node = ejs.compile("<div id=\"<%= id %>\" class=\"story-node\">\r\n\t<div class=\"container-fluid\">\r\n\t<p class=\"story-node-text\">\r\n\t\t<%= message %>\r\n\r\n\t</p>\r\n\t\t</div>\r\n\t<div class=\"btn btn-xs btn-success btn-circle add-child\">+</div>\r\n\t<div class=\"btn btn-xs btn-success btn-circle edit-btn\">e</div>\r\n\t<div class=\"btn btn-xs btn-danger btn-circle self-remove\">-</div>\r\n</div>\r\n");
-exports.StoryCard = ejs.compile("<div class = \"test-story\">\r\n<div class=\"story-card\">\r\n<div class=\"col-xs-1 col-sm-3 for-story-main\">\r\n<div class=\"story-i\">\r\n<h2>TITLE:<%=story.title%></h2>\r\n<h5>AUTHOR:<%= story.author %></h5>\r\n<h3> GENRE:<%= story.genre %></h3>\r\n\r\n<h3>ID: <%= story._id %></h3>\r\n    <h6>DESC:<%= story.description %></h6>\r\n    <div class=\"btn btn-xs btn-default btn-circle link-to-read\">Link</div>\r\n    \r\n    \r\n</div>\r\n</div>\r\n</div>");
+exports.StoryCard = ejs.compile("<div class = \"test-story\">\r\n<div class=\"story-card\">\r\n<div class=\"col-xs-6 col-sm-4 col-md-3 for-story-main\">\r\n<div class=\"story-i\">\r\n<h3><%=story.title%></h3>\r\n<h5>by <%= story.author %></h5>\r\n<h4> Genre: <%= story.genre %></h4>\r\n\r\n    <h6><%= story.description %></h6>\r\n    <div class=\"btn btn-xs btn-default btn-circle link-to-read\">Read</div>\r\n    \r\n    \r\n</div>\r\n</div>\r\n</div>");
 
 
 
